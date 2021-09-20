@@ -10,7 +10,7 @@ class DynamicBox extends Component{
             mdata : MATCHDATA
         }
     }
-
+l
     render(){
         return(
             <Container>
