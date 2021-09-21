@@ -5,7 +5,6 @@ import {Container,Grid} from '@material-ui/core';
 import DynamicBox from '../../components/DynamicBox' 
 import { withStyles } from '@material-ui/core/styles';
 import '../../styles/media.scss';
-import NavBar from '../../components/NavBar'
 
 const useStyles = theme => ({
     root: {

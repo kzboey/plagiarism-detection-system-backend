@@ -11,7 +11,7 @@ const drawerWidth = 240;
 
 const styles = {
     sideNav: {
-        width: '100%',      
+        width: '15rem',      
     },
     link: {
       color: 'black',
@@ -59,12 +59,12 @@ export default class NavBar extends Component{
                 onClose={this.closeSideBar}>
                 <Box style={styles.sideNav} >
                 <List>
-                    <Link to='/report' style={styles.link}>
+                    <Link to='/home' style={styles.link}>
                         <ListItem>
                         <ListItemIcon>
                             <AccountCircleIcon/>
                         </ListItemIcon>
-                        <ListItemText primary='About Us' />
+                        <ListItemText primary='My Submission' />
                         </ListItem>
                     </Link>
                     <Divider/>
@@ -73,7 +73,7 @@ export default class NavBar extends Component{
                         <ListItemIcon>
                             <PermContactCalendarIcon/>
                         </ListItemIcon>
-                        <ListItemText primary='Contact Us' />
+                        <ListItemText primary='Report' />
                         </ListItem>
                     </Link>
                 </List>

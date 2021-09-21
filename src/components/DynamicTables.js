@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import InfoIcon from '@material-ui/icons/Info';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import '../styles/media.scss';
-import {Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 class DynamicTables extends Component{
     constructor(props) {    //improve pass table cell as table data through props
@@ -72,7 +72,7 @@ class DynamicTables extends Component{
     }
 
     viewReport = () => {
-        return  <Redirect  to="/report" />
+        return  <Link  to="/report" />
     }
 }
 
