@@ -10,8 +10,14 @@ const useStyles = theme => ({
         border : '1px solid #06080a' ,
         padding : '0px'
     },
-    matchListItem: {
-        color : 'black'
+    matchListItem1: {
+        color : '#d90726'
+    },
+    matchListItem2: {
+        color : '#6a056e'
+    },
+    matchListItem3: {
+        color : '#05780b'
     },
     listIndex: {
         padding : '10px'
@@ -20,8 +26,8 @@ const useStyles = theme => ({
         padding: '0px 0px 0px 15px'
     },
     listSimilarity: {
-        padding : '10px'
-
+        padding : '10px',
+        color : 'black'
     },
     matchOverall:{
         width: '100%',
@@ -48,6 +54,23 @@ class DynamicBox extends Component{
         }
     }
 
+    getListClass(source){
+        let className = '';
+        switch(source){
+            case 'Publication':
+                className = 'matchListItem1';
+                break;
+            case 'Student exam':
+                className = 'matchListItem2';
+                break;
+            case 'Internet Sources':
+                className = 'matchListItem3';
+                break;    
+            default:
+                break;      
+        }
+    }
+
     render(){
         const { classes } = this.props;
         return(
@@ -60,7 +83,7 @@ class DynamicBox extends Component{
                 </Box> 
                 <Divider/>
                 {this.state.mdata.map((row,index) => (
-                    <ListItem divider className={classes.matchListItem}>
+                    <ListItem divider className={classes.matchListItem1}>
                         <Typography variant="h3" className={classes.listIndex}>
                             {++index}
                         </Typography>  
