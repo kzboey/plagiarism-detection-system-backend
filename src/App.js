@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import TaskLists from './layouts/MyTask/index'
-import NavBar from './components/NavBar'
+import Login from './layouts/Login/index'
 
 class App extends Component {					
     render(){

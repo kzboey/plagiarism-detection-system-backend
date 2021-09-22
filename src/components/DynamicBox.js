@@ -23,7 +23,7 @@ const useStyles = theme => ({
         padding : '10px'
     },
     matchListItemText: {
-        padding: '0px 0px 0px 15px'
+        padding: '0px 0px 0px 15px',
     },
     listSimilarity: {
         padding : '10px',
@@ -54,21 +54,21 @@ class DynamicBox extends Component{
         }
     }
 
-    getListClass(source){
+    getListClassName(source){
         let className = '';
+        const { classes } = this.props;
         switch(source){
             case 'Publication':
-                className = 'matchListItem1';
+                className = classes.matchListItem1;
                 break;
             case 'Student exam':
-                className = 'matchListItem2';
+                className = classes.matchListItem2;
                 break;
             case 'Internet Sources':
-                className = 'matchListItem3';
-                break;    
-            default:
-                break;      
+                className = classes.matchListItem3;
+                break;       
         }
+        return className;
     }
 
     render(){
@@ -83,11 +83,14 @@ class DynamicBox extends Component{
                 </Box> 
                 <Divider/>
                 {this.state.mdata.map((row,index) => (
-                    <ListItem divider className={classes.matchListItem1}>
+                    <ListItem divider className={this.getListClassName(row.sources)}>
                         <Typography variant="h3" className={classes.listIndex}>
                             {++index}
                         </Typography>  
-                        <ListItemText primary={row.string} secondary={row.sources} className={classes.matchListItemText}/> 
+                        <ListItemText 
+                            primary={<Typography style={{ fontSize: '1.5rem', fontWeight : 'bold' }}>{row.string}</Typography>} 
+                            secondary={row.sources} 
+                            className={classes.matchListItemText}/> 
                         <Typography variant="h4" className={classes.listSimilarity}>
                             {row.similiarity}
                         </Typography>  
