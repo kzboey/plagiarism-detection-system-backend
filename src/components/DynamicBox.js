@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {MATCHDATA } from '../resources/MatchData';
 import '../styles/media.scss';
-import {Container,Typography,Divider,Box} from '@material-ui/core';
+import {Container,Typography,Divider,Box,makeStyles,Button} from '@material-ui/core';
 import { List, ListItem, ListItemText } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import CustomDialog from './CustomDialog' 
 
-const useStyles = theme => ({
+const useStyles = makeStyles(theme => ({
     matchlist: {
         border : '1px solid #06080a' ,
         padding : '0px'
@@ -44,19 +44,15 @@ const useStyles = theme => ({
             
         }
     }
-  })
+  }))
 
-class DynamicBox extends Component{
-    constructor(props) {    //improve pass table cell as table data through props
-        super(props);
-        this.state = {
-            mdata : MATCHDATA,
-        }
-    }
+  export default function DynamicBox(props){
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const mdata = MATCHDATA;
 
-    getListClassName(source){
+    const getListClassName = (source) =>{
         let className = '';
-        const { classes } = this.props;
         switch(source){
             case 'Publication':
                 className = classes.matchListItem1;
@@ -71,34 +67,40 @@ class DynamicBox extends Component{
         return className;
     }
 
-    render(){
-        const { classes } = this.props;
-        return(
-            <Container>
-                <Typography variant="h2">Match Overview</Typography>  
-                <List className={classes.matchlist}> 
-                <Box className={classes.matchOverall}>
-                    <p>21%</p>
-                    <span>{this.state.mdata.length} matches</span> 
-                </Box> 
-                <Divider/>
-                {this.state.mdata.map((row,index) => (
-                    <ListItem divider className={this.getListClassName(row.sources)}>
-                        <Typography variant="h3" className={classes.listIndex}>
-                            {++index}
-                        </Typography>  
-                        <ListItemText 
-                            primary={<Typography style={{ fontSize: '1.5rem', fontWeight : 'bold' }}>{row.string}</Typography>} 
-                            secondary={row.sources} 
-                            className={classes.matchListItemText}/> 
-                        <Typography variant="h4" className={classes.listSimilarity}>
-                            {row.similiarity}
-                        </Typography>  
-                    </ListItem>            
-                ))}
-                </List>
-            </Container>         
-        )
-    }
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    
+    return(
+        <Container>
+            <Typography variant="h2">Match Overview</Typography>  
+            <List className={classes.matchlist}> 
+            <Box className={classes.matchOverall}>
+                <p>21%</p>
+                <span>{mdata.length} matches</span> 
+            </Box> 
+            <Divider/>
+            {mdata.map((row,index) => (
+                <ListItem divider className={getListClassName(row.sources)} onClick={handleClickOpen}>
+                    <Typography variant="h3" className={classes.listIndex}>
+                        {++index}
+                    </Typography>  
+                    <ListItemText 
+                        primary={<Typography style={{ fontSize: '1.5rem', fontWeight : 'bold' }}>{row.string}</Typography>} 
+                        secondary={row.sources} 
+                        className={classes.matchListItemText}/> 
+                    <Typography variant="h4" className={classes.listSimilarity}>
+                        {row.similiarity}
+                    </Typography>  
+                </ListItem>            
+            ))}
+            </List>
+            <CustomDialog
+                open={open}
+                onClose={() => setOpen(false)}
+            />
+        </Container>         
+    )
 }
-export default withStyles(useStyles) (DynamicBox)
+

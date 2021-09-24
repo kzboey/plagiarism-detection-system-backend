@@ -12,6 +12,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import '../styles/media.scss';
 import {Link} from 'react-router-dom';
+import CustomButton from './CustomButton' 
 
 class DynamicTables extends Component{
     constructor(props) {    //improve pass table cell as table data through props
@@ -48,8 +49,8 @@ class DynamicTables extends Component{
                     </TableCell>
                     <TableCell align="right">{row.similiarity}</TableCell>
                     <TableCell align="right">
-                        <Button color="primary"> Upload </Button>
-                        <Button color="primary" onClick={this.viewReport}> View </Button>
+                        <CustomButton title="Upload" type="upload" />
+                        <CustomButton title="View" type="View" onClick={this.viewReport}/>
                         <GetAppIcon/>
                     </TableCell>
                   </TableRow>
@@ -72,7 +73,7 @@ class DynamicTables extends Component{
     }
 
     viewReport = () => {
-        return  <Link  to="/report" />
+      this.props.history.push("/report");
     }
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import {Button,TextField,Grid,Paper,Typography,Link,} from "@material-ui/core";
-import '../../styles/media.scss';
+import './index.scss';
+import CustomButton from '../../components/CustomButton'
 
 class Login extends React.Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class Login extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        if (this.state.username == 'admin@littech.in' && this.state.password == 'secret') {
+        if (this.state.username == 'admin' && this.state.password == 'admin') {
             this.props.history.push("/home");
         } else {
         alert('Incorrect Credntials!');}
@@ -49,15 +50,15 @@ class Login extends React.Component {
                         <Grid container direction="column" spacing={2}>
                             <Grid item>
                                 <TextField
-                                    type="email"
-                                    placeholder="Email"
+                                    type="username"
+                                    placeholder="Username"
                                     fullWidth
                                     name="username"
                                     variant="outlined"
                                     value={this.state.username}
                                     onChange={(event) =>
-                                    this.setState({
-                                        [event.target.name]: event.target.value,
+                                        this.setState({
+                                            [event.target.name]: event.target.value,
                                         })
                                     }
                                     required
@@ -81,14 +82,7 @@ class Login extends React.Component {
                                 />
                             </Grid>
                             <Grid item>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    className="button-block"
-                                >
-                                Submit
-                                </Button>
+                                <CustomButton title="Submit" type="submit" />
                             </Grid>
                         </Grid>
                         </form>
