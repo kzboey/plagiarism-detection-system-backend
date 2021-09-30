@@ -4,10 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-<<<<<<< HEAD
-=======
 venv
->>>>>>> 141ea5a5424823b161f49a79e8d48b4002f19b32
 
 # testing
 /coverage
@@ -21,18 +18,8 @@ venv
 .env.development.local
 .env.test.local
 .env.production.local
-<<<<<<< HEAD
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-#venv
-venv/
-=======
 __pycache__
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> 141ea5a5424823b161f49a79e8d48b4002f19b32
