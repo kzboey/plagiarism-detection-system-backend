@@ -4,6 +4,7 @@ import json
 
 task = Blueprint('task', __name__)
 
+#entry point: get all my tasks
 @task.route('/getTask')
 def getAllTask():
     # current_dir = os.getcwd()
