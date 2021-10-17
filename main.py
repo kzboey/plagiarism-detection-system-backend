@@ -1,20 +1,16 @@
-import fitz
-
-def convertToPng(file):
-    try:
-        doc = fitz.open(file)
-        page_count = len(doc)
-        for idx in range(page_count):
-            page = doc.loadPage(idx)  # number of page
-            pix = page.getPixmap()
-            output = "outfile{}.png".format(idx)
-            pix.writePNG(output)
-    except:
-        print("File exception")
+from Utils.FileUtils import generateOutputFiles
+import os
 
 def main():
-    myfile = "Question 3_LIANG Qihang_55917602.pdf"
-    convertToPng(myfile)
+    # directory = "C:\\Users\\kaiboey2\\Downloads\\PhDQE-2020-Q3A\\"
+    # dirs = os.listdir(directory)
+    # for file in dirs:
+    #     name, extension = os.path.splitext(file)
+    #     print(name+"-----"+extension)
+
+    generateOutputFiles()
+    # fileName = "Question 3_CHEN Yufei_56079581"
+    # convertToPng(directory,fileName)
 
 if __name__ == "__main__":
     main()
