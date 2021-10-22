@@ -1,34 +1,37 @@
-import os
-
 from flask import Flask
 from flask_cors import CORS
-from Controller.loginController import login
-from Controller.taskController import task
+from flask_migrate import Migrate
+from flask_restful import Api
+
+from config import Config
+from extensions import db, jwt
+
+from controllers.oldusercontroller import login
+from controllers.oldtaskcontroller import task  #remove soon, for testing
 
 #Initialize app
 def create_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__)
     CORS(app)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-    )
+    app.config.from_object(Config)
 
-    if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # load the test config if passed in
-        app.config.from_mapping(test_config)
-
-    # ensure the instance folder exists
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+    register_extensions(app)
+    register_resources(app)
 
     app.register_blueprint(login)
     app.register_blueprint(task)
 
     return app
+
+def register_extensions(app):
+    db.init_app(app)
+    migrate = Migrate(app, db)
+    jwt.init_app(app)
+
+def register_resources(app):
+    api = Api(app)
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run()

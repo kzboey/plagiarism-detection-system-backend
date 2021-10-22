@@ -1,7 +1,7 @@
-from flask import Flask, Blueprint, jsonify
-import os
+from flask import Blueprint
 import json
 
+#BLUEPRINT IMPLEMENTATION
 task = Blueprint('task', __name__)
 
 #entry point: get all my tasks
