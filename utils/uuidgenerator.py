@@ -2,6 +2,7 @@ import uuid
 import random
 
 
+#uuid generator
 def gen_uuid4(size=20):
     _uuid4 = str(uuid.uuid4()).replace('-', '')
     return _uuid4[:size]
