@@ -11,6 +11,7 @@ class Tasks(db.Model):
     due_date = db.Column(db.DateTime(), nullable=False)
     modified_date = db.Column(db.DateTime(), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
     eid_fk	= db.Column(db.String(20), db.ForeignKey('USERS.eid'), nullable=False)
+    submissions = db.relationship('SUBMISSIONS', backref='submission')
 
     @classmethod
     def get_user_tasks(cls,user_id):
