@@ -12,8 +12,10 @@ Image.MAX_IMAGE_PIXELS = None
 
 #read from config file in future
 #default_input_dir = "C:\\Users\\kaiboey2\\Downloads\\PhDQE-2020-Q3A\\"
-default_input_dir = "C:\\Users\\kaiboey2\\Documents\\input_directory\\"
-default_output_dir = "C:/Users/kaiboey2/Documents/tempfiles_2/"
+# default_input_dir = "C:\\Users\\kaiboey2\\Documents\\input_directory\\"
+# default_output_dir = "C:/Users/kaiboey2/Documents/tempfiles_2/"
+default_input_dir = "/Users/boeykaizhe/projects/plagiarism-detection-webapp/public"
+default_output_dir = "/Users/boeykaizhe/projects/plagiarism-detection-webapp/temp"
 
 
 class Files:
@@ -24,6 +26,7 @@ class Files:
         self.resolution = resolution
 
     def genoutputfiles(self):
+        print(os.getcwd())
         dirs = os.listdir(self.input_directory)
 
         for file in dirs:
@@ -34,10 +37,11 @@ class Files:
                 self.docx2pdf(self.input_directory,file_name,extension)
             elif 'zip' in extension:
                 self.zip2png(file,file_name)
-            elif 'jpg' or 'jpeg' in extension:
+            elif 'jpg' in extension or 'jpeg' in extension:
                with Image.open(os.path.join(self.input_directory, file)) as im1:
                     im1.save(os.path.join(self.output_directory, file_name)+ ".png", 'PNG')
-
+            else:
+                raise Exception("Invalid file format: %s", extension)
         return True  #success
 
     def zip2png(self,zipfile,zip_name):
@@ -52,7 +56,7 @@ class Files:
                 extracted_path.rename(fn.encode('cp437').decode('gbk'))
             os.chdir(prev_cwd)
             zip.close()
-            temp_obj = Files(input_directory=temp_dir)
+            temp_obj = Files(input_directory=temp_path)
             status = temp_obj.genoutputfiles()
             if os.path.exists(temp_path):
                 shutil.rmtree(temp_path)
@@ -62,7 +66,7 @@ class Files:
     #poppler_path required for windows
     def pdf2png(self,directory,pdf_name):
         try:
-            pages = convert_from_path(os.path.join(directory, pdf_name+'.pdf'), dpi=600, poppler_path = r"C:\Users\kaiboey2\Downloads\Release-21.10.0-0\poppler-21.10.0\Library\bin")
+            pages = convert_from_path(os.path.join(directory, pdf_name+'.pdf'), dpi=self.resolution) #, poppler_path = r"C:\Users\kaiboey2\Downloads\Release-21.10.0-0\poppler-21.10.0\Library\bin")
             for idx, page in enumerate(pages):
                 page.save(os.path.join(self.output_directory, pdf_name) + "_{}.png".format(idx), 'PNG')
         except IndexError as e:
