@@ -5,13 +5,18 @@ class Users(db.Model):
 
     eid = db.Column(db.String(20), primary_key=True)
     password = db.Column(db.String(20), nullable=False)
-    username = db.Column(db.String(20), nullable=False, unique=True)
+    last_name = db.Column(db.String(30), nullable=False)
+    first_name = db.Column(db.String(30), nullable=False)
+    other_name = db.Column(db.String(30))
     email = db.Column(db.String(20), nullable=False, unique=True)
+    phone = db.Column(db.String(30))
+    organization = db.Column(db.String(30))
+
     tasks = db.relationship('TASKS', backref='user')
 
     @classmethod
-    def get_by_username(cls, username):
-        return cls.query.filter_by(username=username).first()
+    def get_by_eid(cls, eid):
+        return cls.query.filter_by(eid=eid).first()
 
     @classmethod
     def get_by_email(cls, email):

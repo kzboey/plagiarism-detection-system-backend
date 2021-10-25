@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields
-from utils.hash import hash_password
+from utils.passwords import hash_password
 
 
 class UserSchema(Schema):

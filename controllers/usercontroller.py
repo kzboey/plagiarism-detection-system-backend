@@ -21,8 +21,8 @@ class UserListResource(Resource):
         if errors:
             return {'message': 'Validation errors', 'errors': errors}, HTTPStatus.BAD_REQUEST
 
-        if Users.get_by_username(data.get('username')):
-            return {'message': 'username already used'}, HTTPStatus.BAD_REQUEST
+        if Users.get_by_eid(data.get('eid')):
+            return {'message': 'eid already used'}, HTTPStatus.BAD_REQUEST
 
         if Users.get_by_email(data.get('email')):
             return {'message': 'email already used'}, HTTPStatus.BAD_REQUEST
