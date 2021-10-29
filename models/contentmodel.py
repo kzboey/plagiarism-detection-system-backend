@@ -1,6 +1,6 @@
 from extensions import db
 
-class Documents(db.Model):
+class Contents(db.Model):
     __tablename__ = 'CONTENTS'
 
     content_type = db.Column(db.String(50), nullable=False)
@@ -11,6 +11,6 @@ class Documents(db.Model):
     position_y1 = db.Column(db.SmallInteger, nullable=False)
     position_y1 = db.Column(db.SmallInteger, nullable=False)
     confidence = db.Column(db.SmallInteger, nullable=False)
-    page_id_FK = db.Column(db.Integer, db.ForeignKey('SOURCES.sources_id'), nullable=False)
+    page_id_FK = db.Column(db.Integer, db.ForeignKey('PAGES.page_id', ondelete="CASCADE"), nullable=False)
 
-    sources = db.relationship('SOURCES', backref='document')
+    sources = db.relationship('SOURCES', backref='document', cascade="all, delete", passive_deletes=True)

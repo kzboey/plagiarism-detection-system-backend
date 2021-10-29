@@ -8,6 +8,14 @@ from extensions import db, jwt
 
 from controllers.oldusercontroller import login
 from controllers.oldtaskcontroller import task  #remove soon, for testing
+from controllers.usercontroller import UserListResource
+from controllers.taskcontroller import TaskListResource
+from controllers.submissioncontroller import SubmissionListResource
+from controllers.documentcontroller import DocumentListResource
+from controllers.pagecontroller import PageListResource
+from controllers.contentcontroller import ContentListResource
+from controllers.sourcecontroller import SourceListResource
+
 
 #Initialize app
 def create_app(test_config=None):
@@ -31,6 +39,14 @@ def register_extensions(app):
 
 def register_resources(app):
     api = Api(app)
+
+    api.add_resource(UserListResource, '/users')
+    api.add_resource(TaskListResource, '/tasks')
+    api.add_resource(SubmissionListResource, '/submissions')
+    api.add_resource(DocumentListResource, '/documents')
+    api.add_resource(PageListResource, '/pages')
+    api.add_resource(ContentListResource, '/contents')
+    api.add_resource(SourceListResource, '/sources')
 
 if __name__ == '__main__':
     app = create_app()

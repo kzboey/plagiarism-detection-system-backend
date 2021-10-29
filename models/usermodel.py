@@ -12,7 +12,7 @@ class Users(db.Model):
     phone = db.Column(db.String(30))
     organization = db.Column(db.String(30))
 
-    tasks = db.relationship('TASKS', backref='user')
+    tasks = db.relationship('TASKS', backref='user', cascade="all, delete",  passive_deletes=True)
 
     @classmethod
     def get_by_eid(cls, eid):
@@ -21,10 +21,6 @@ class Users(db.Model):
     @classmethod
     def get_by_email(cls, email):
         return cls.query.filter_by(email=email).first()
-
-    @classmethod
-    def get_by_id(cls, id):
-        return cls.query.filter_by(id=id).first()
 
     def save(self):
         db.session.add(self)

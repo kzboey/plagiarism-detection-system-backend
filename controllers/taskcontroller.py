@@ -4,6 +4,8 @@ from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from http import HTTPStatus
 
+from models.taskmodel import Tasks
+
 
 class TaskListResource(Resource):
     def get(self):

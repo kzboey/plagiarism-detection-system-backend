@@ -1,6 +1,6 @@
 from extensions import db
 
-class Documents(db.Model):
+class Sources(db.Model):
     __tablename__ = 'SOURCES'
 
     sources_id = db.Column(db.Integer, primary_key=True)

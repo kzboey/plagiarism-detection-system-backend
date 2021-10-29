@@ -31,3 +31,30 @@ class UserListResource(Resource):
         new_user.save()
 
         return user_schema.dump(new_user).data, HTTPStatus.CREATED
+
+
+class UserResource(Resource):
+
+    @jwt_required(optional=True)
+    def get(self, eid):
+
+        user = Users.get_by_eid(eid=eid)
+
+        if user is None:
+            return {'message': 'User not found'}, HTTPStatus.NOT_FOUND
+
+        current_user = get_jwt_identity()
+
+        if current_user == user.id:
+            data = user_schema.dump(user).data
+
+        return data, HTTPStatus.OK
+
+
+class MeResource(Resource):
+
+    @jwt_required
+    def get(self):
+        user = Users.get_by_eid(eid=get_jwt_identity())
+
+        return user_schema.dump(user).data, HTTPStatus.OK
