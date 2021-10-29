@@ -8,6 +8,8 @@ from models.taskmodel import Tasks
 
 
 class TaskListResource(Resource):
+
+    @jwt_required
     def get(self):
         pass
 

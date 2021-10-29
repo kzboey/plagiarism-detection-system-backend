@@ -7,8 +7,12 @@ class UserSchema(Schema):
         ordered = True
 
     eid = fields.String()
-    username = fields.String(required=True)
+    last_name = fields.String(required=True)
+    first_name = fields.String(required=True)
+    other_name = fields.String(required=True)
     email = fields.Email(required=True)
+    phone = fields.String(required=True)
+    organization = fields.String(required=True)
     password = fields.Method(required=True, deserialize='load_password')
 
     def load_password(self, value):
