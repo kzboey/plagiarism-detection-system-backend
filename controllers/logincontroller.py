@@ -16,7 +16,7 @@ black_list = set()
 
 
 #login authentication, get tokem
-class TokenResource(Resource):
+class LoginResource(Resource):
 
     def post(self):
 
@@ -30,8 +30,8 @@ class TokenResource(Resource):
         if not user or not check_password(password, user.password):
             return {'message': 'eid or password is incorrect'}, HTTPStatus.UNAUTHORIZED
 
-        access_token = create_access_token(identity=user.id, fresh=True)
-        refresh_token = create_refresh_token(identity=user.id)
+        access_token = create_access_token(identity=user.eid, fresh=True)
+        refresh_token = create_refresh_token(identity=user.eid)
 
         return {'access_token': access_token, 'refresh_token': refresh_token}, HTTPStatus.OK
 

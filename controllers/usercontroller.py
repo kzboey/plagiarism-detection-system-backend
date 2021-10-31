@@ -16,8 +16,12 @@ class UserListResource(Resource):
     def post(self):
         json_data = request.get_json()
 
-        data, errors = user_schema.load(data=json_data)
+        try:
+            data = user_schema.load(data=json_data)
+        except Exception as e:
+            return {'message': 'Validation errors', 'errors': e}, HTTPStatus.BAD_REQUEST
 
+        """
         if errors:
             return {'message': 'Validation errors', 'errors': errors}, HTTPStatus.BAD_REQUEST
 
@@ -26,11 +30,11 @@ class UserListResource(Resource):
 
         if Users.get_by_email(data.get('email')):
             return {'message': 'email already used'}, HTTPStatus.BAD_REQUEST
-
+        """
         new_user = Users(**data)
         new_user.save()
 
-        return user_schema.dump(new_user).data, HTTPStatus.CREATED
+        return user_schema.dump(new_user), HTTPStatus.CREATED
 
 
 class UserResource(Resource):
@@ -45,8 +49,8 @@ class UserResource(Resource):
 
         current_user = get_jwt_identity()
 
-        if current_user == user.id:
-            data = user_schema.dump(user).data
+        if current_user == user.eid:
+            data = user_schema.dump(user)
 
         return data, HTTPStatus.OK
 
@@ -57,4 +61,4 @@ class MeResource(Resource):
     def get(self):
         user = Users.get_by_eid(eid=get_jwt_identity())
 
-        return user_schema.dump(user).data, HTTPStatus.OK
+        return user_schema.dump(user), HTTPStatus.OK

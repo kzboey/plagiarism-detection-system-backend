@@ -12,11 +12,11 @@ class Tasks(db.Model):
     modified_date = db.Column(db.DateTime(), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
     eid_fk = db.Column(db.String(20), db.ForeignKey('USERS.eid', ondelete="CASCADE"), nullable=False)
 
-    submissions = db.relationship('SUBMISSIONS', backref='task', cascade="all, delete",  passive_deletes=True)
+    submissions = db.relationship('Submissions', backref='task', cascade="all, delete",  passive_deletes=True)
 
     @classmethod
-    def get_user_tasks(cls,user_id):
-        return cls.query.filter_by(eid_fk=user_id).all()
+    def get_user_tasks(cls,eid):
+        return cls.query.filter_by(eid_fk=eid).all()
 
     def save(self):
         db.session.add(self)
