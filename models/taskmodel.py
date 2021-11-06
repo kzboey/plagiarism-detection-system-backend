@@ -18,6 +18,10 @@ class Tasks(db.Model):
     def get_user_tasks(cls,eid):
         return cls.query.filter_by(eid_fk=eid).all()
 
+    @classmethod
+    def get_task_by_id(cls, task_id):
+        return cls.query.filter_by(task_id=task_id).first()
+
     def save(self):
         db.session.add(self)
         db.session.commit()

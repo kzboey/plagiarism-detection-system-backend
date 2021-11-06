@@ -8,6 +8,6 @@ def gen_uuid4(size=20):
     return _uuid4[:size]
 
 
-def random_id(size=10):
+def gen_randomid(size=10):
     rnd = random.randint(0, 10**size)
-    print(rnd)
+    return rnd

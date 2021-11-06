@@ -6,7 +6,6 @@ import os
 import shutil
 from pathlib import Path
 
-
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 Image.MAX_IMAGE_PIXELS = None
 
@@ -17,6 +16,7 @@ default_input_dir = "C:\\Users\\kaiboey2\\Documents\\orientation_files\\"
 default_output_dir = "C:/Users/kaiboey2/Documents/oent_files_output/"
 # default_input_dir = "/Users/boeykaizhe/projects/plagiarism-detection-webapp/public"
 # default_output_dir = "/Users/boeykaizhe/projects/plagiarism-detection-webapp/temp"
+
 
 class Files:
 
@@ -76,9 +76,8 @@ class Files:
 
         return True
 
-    #poppler_path required for windows
     def pdf2png(self, directory, pdf_name):
-
+        """poppler_path required for windows"""
         try:
             pages = convert_from_path(os.path.join(directory, pdf_name+'.pdf'), dpi=self.resolution, poppler_path = r"C:\Users\kaiboey2\Downloads\Release-21.10.0-0\poppler-21.10.0\Library\bin")
             for idx, page in enumerate(pages):
