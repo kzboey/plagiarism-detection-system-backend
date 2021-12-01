@@ -18,3 +18,7 @@ class Config:
     JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
 
     UPLOADED_IMAGES_DEST = 'static/documents'
+
+    UPLOAD_FOLDER = 'C:/temp/documents'
+    IMAGE_FOLDER = 'C:/temp/pages'
+    MAX_CONTENT_LENGTH = 32 * 1024 * 1024

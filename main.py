@@ -1,28 +1,21 @@
 from utils.fileutils import Files
 import sys, getopt
-from utils.uuidgenerator import gen_uuid4,random_id
+from utils.uuidgenerator import gen_uuid4,gen_randomid
 from cryptography.fernet import Fernet
+import os
+import numpy as np
 
 
 def main():
     # fileutl = Files(resolution=600)
     # fileutl.genoutputfiles()
-    # message = '9q77rs8a1A'
-    # encMessage = encrpt(message)
-    #
-    # print("original string: ", message)
-    # print("encrypted string: ", encMessage)
-    #
-    # decMessage = decrypt(encMessage)
-    # print("decrypted string: ", decMessage)
-
-    MYSQL_USERNAME = 'boey'
-    MYSQL_PASSWORD = 'P@ssw0rd'
-    MYSQL_SERVER = 'localhost:3306'
-    DB_NAME = 'vtl'
-
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://{usr}:{pwd}@{svr}/{db}'.format(usr=MYSQL_USERNAME, pwd=MYSQL_PASSWORD, svr=MYSQL_SERVER, db=DB_NAME)
-    print('sql alchemy link: {}'.format(SQLALCHEMY_DATABASE_URI))
+    np.random.seed(1)
+    A_prev = np.random.randn(2,2,2)
+    W = np.random.randn(3, 3, 4, 8)
+    print(A_prev.shape)
+    print(A_prev)
+    # (m, n_H_prev, n_W_prev, n_C_prev) = A_prev.shape
+    #  (f, f, n_C_prev, n_C) = W
 
 if __name__ == "__main__":
     main()

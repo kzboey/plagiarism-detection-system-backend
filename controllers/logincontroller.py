@@ -11,6 +11,7 @@ from flask_jwt_extended import (
 
 from utils.passwords import check_password
 from models.usermodel import Users
+from common.wrapper import success_wrapper, error_wrapper
 
 black_list = set()
 
@@ -28,12 +29,13 @@ class LoginResource(Resource):
         user = Users.get_by_eid(eid=eid)
 
         if not user or not check_password(password, user.password):
-            return {'message': 'eid or password is incorrect'}, HTTPStatus.UNAUTHORIZED
+            return error_wrapper(HTTPStatus.UNAUTHORIZED, "login fail")
 
         access_token = create_access_token(identity=user.eid, fresh=True)
         refresh_token = create_refresh_token(identity=user.eid)
 
-        return {'access_token': access_token, 'refresh_token': refresh_token}, HTTPStatus.OK
+        resp_data = {'access_token': access_token, 'refresh_token': refresh_token}
+        return success_wrapper(HTTPStatus.OK, "login success", resp_data)
 
 
 class RefreshResource(Resource):
@@ -44,7 +46,8 @@ class RefreshResource(Resource):
 
         token = create_access_token(identity=current_user, fresh=False)
 
-        return {'token': token}, HTTPStatus.OK
+        resp_data = {'token': token}
+        return success_wrapper(HTTPStatus.OK, "token refreshed ", resp_data)
 
 
 class RevokeResource(Resource):
@@ -55,4 +58,4 @@ class RevokeResource(Resource):
 
         black_list.add(jti)
 
-        return {'message': 'Successfully logged out'}, HTTPStatus.OK
+        return success_wrapper(HTTPStatus.OK, "Successfully logged out", {})

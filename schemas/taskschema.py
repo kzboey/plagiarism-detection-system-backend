@@ -5,7 +5,7 @@ class TaskSchema(Schema):
     class Meta:
         ordered = True
 
-    task_id = fields.Integer()
+    task_id = fields.String()
     course_id = fields.String()
     course_title = fields.String()
     task_name = fields.String()
@@ -15,6 +15,4 @@ class TaskSchema(Schema):
 
     @post_dump(pass_many=True)
     def wrap(self, data, many, **kwargs):
-        if many:
-            return {'data': data}
         return data

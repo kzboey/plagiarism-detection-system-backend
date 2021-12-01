@@ -57,7 +57,7 @@ class UserResource(Resource):
 
 class MeResource(Resource):
 
-    @jwt_required
+    @jwt_required()
     def get(self):
         user = Users.get_by_eid(eid=get_jwt_identity())
 

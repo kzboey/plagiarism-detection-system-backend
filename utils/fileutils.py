@@ -5,6 +5,9 @@ from zipfile import ZipFile
 import os
 import shutil
 from pathlib import Path
+from werkzeug.utils import secure_filename
+from flask import current_app
+from models.taskmodel import Tasks
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 Image.MAX_IMAGE_PIXELS = None
@@ -17,41 +20,80 @@ default_output_dir = "C:/Users/kaiboey2/Documents/oent_files_output/"
 # default_input_dir = "/Users/boeykaizhe/projects/plagiarism-detection-webapp/public"
 # default_output_dir = "/Users/boeykaizhe/projects/plagiarism-detection-webapp/temp"
 
+ALLOWED_EXTENSIONS = set(['zip', 'doc', 'docx', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def upload_file(file, path):
+    try:
+        if allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(path, filename))
+            return True
+        else:
+            raise Exception("Invalid File Type")
+        return False
+    except IndexError as e:
+        print(e)
+        return False
+
+
+def goto_directory(dir):
+    if not os.path.isdir(dir):
+        os.makedirs(dir)
+    os.chdir(dir)
+
+    return os.getcwd()
+
+
+def get_author(filename):
+    author_name = ''
+    for element in range(0, len(filename)):
+        if filename[element] == '_':
+            author_name = filename[:element]
+            break
+    return author_name
+
 
 class Files:
 
-    def __init__(self, resolution=600,input_directory=default_input_dir, output_directory=default_output_dir):
+    def __init__(self, resolution=600, input_directory=default_input_dir, output_directory=default_output_dir):
         self.input_directory = input_directory
         self.output_directory = output_directory
         self.resolution = resolution
 
     def genoutputfiles(self):
-        print(os.getcwd())
+
         dirs = os.listdir(self.input_directory)
 
         for file in dirs:
-            try:
-                file_name, extension = os.path.splitext(file)
-                extension = extension.lower()
-
-                if 'pdf' in extension:
-                    self.pdf2png(self.input_directory,file_name)
-                elif 'docx' in extension or 'doc' in extension:
-                    self.docx2pdf(self.input_directory,file_name,extension)
-                elif 'zip' in extension:
-                    self.zip2png(file,file_name)
-                elif 'jpg' in extension or 'jpeg' in extension:
-                    with Image.open(os.path.join(self.input_directory, file)) as im1:
-                        im1.save(os.path.join(self.output_directory, file_name) + ".png", 'PNG')
-                elif 'png' in extension:
-                    file_path = os.path.join(self.input_directory, file)
-                    # self.correct_orientation(file_path)
-                    shutil.copy(file_path,self.output_directory)
-            except IndexError as e:
-                print(e)
-                pass
+            self.convert2image(file)
 
         return True  #success
+
+    def convert2image(self, file):
+        try:
+            file_name, extension = os.path.splitext(file)
+            extension = extension.lower()
+
+            if 'pdf' in extension:
+                self.pdf2png(self.input_directory, file_name)
+            elif 'docx' in extension or 'doc' in extension:
+                self.docx2pdf(self.input_directory, file_name, extension)
+            elif 'zip' in extension:
+                self.zip2png(file, file_name)
+            elif 'jpg' in extension or 'jpeg' in extension:
+                with Image.open(os.path.join(self.input_directory, file)) as im1:
+                    im1.save(os.path.join(self.output_directory, file_name) + ".png", 'PNG')
+            elif 'png' in extension:
+                file_path = os.path.join(self.input_directory, file)
+                shutil.copy(file_path, self.output_directory)
+        except IndexError as e:
+            print(e)
+            pass
 
     def zip2png(self, zipfile, zip_name):
         with ZipFile(os.path.join(self.input_directory, zipfile),'r') as zip:
@@ -102,27 +144,3 @@ class Files:
             return False
 
         return True
-
-    def correct_orientation(self, img):
-
-        try:
-            image = Image.open(img)
-
-            for orientation in ExifTags.TAGS.keys():
-                if ExifTags.TAGS[orientation] == 'Orientation':
-                    break
-
-            exif = image._getexif()
-
-            if exif[orientation] == 3:
-                image = image.rotate(180, expand=True)
-            elif exif[orientation] == 6:
-                image = image.rotate(270, expand=True)
-            elif exif[orientation] == 8:
-                image = image.rotate(90, expand=True)
-
-            image.save(os.path.join(self.output_directory, img))
-            image.close()
-        except (AttributeError, KeyError, IndexError):
-            # cases: image don't have getexif
-            pass
