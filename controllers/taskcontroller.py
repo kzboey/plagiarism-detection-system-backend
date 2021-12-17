@@ -23,7 +23,7 @@ class TaskListResource(Resource):
 
         resp_data = task_list_schema.dump(tasks)
         return success_wrapper(HTTPStatus.OK, "success", resp_data)
-        # return task_list_schema.dump(tasks), HTTPStatus.OK
+
 
     @jwt_required(optional=True)
     def post(self):
@@ -36,7 +36,6 @@ class TaskListResource(Resource):
             data = task_schema.load(data=json_data)
         except Exception as e:
             return error_wrapper(HTTPStatus.BAD_REQUEST, 'Validation errors: {}'.format(e))
-            # {'message': 'Validation errors', 'errors': e}, HTTPStatus.BAD_REQUEST
 
         task = Tasks(**data)
         task.task_id = gen_randomid(6)

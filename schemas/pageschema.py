@@ -9,6 +9,7 @@ class PageSchema(Schema):
     page_name = fields.String()
     page_path = fields.String()
 
+
     @post_dump(pass_many=True)
     def wrap(self, data, many, **kwargs):
         return data

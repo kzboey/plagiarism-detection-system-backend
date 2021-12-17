@@ -34,7 +34,7 @@ class LoginResource(Resource):
         access_token = create_access_token(identity=user.eid, fresh=True)
         refresh_token = create_refresh_token(identity=user.eid)
 
-        resp_data = {'access_token': access_token, 'refresh_token': refresh_token}
+        resp_data = {'access_token': access_token, 'refresh_token': refresh_token, 'user_right': user.right}
         return success_wrapper(HTTPStatus.OK, "login success", resp_data)
 
 

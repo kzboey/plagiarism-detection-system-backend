@@ -6,8 +6,6 @@ import os
 import shutil
 from pathlib import Path
 from werkzeug.utils import secure_filename
-from flask import current_app
-from models.taskmodel import Tasks
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 Image.MAX_IMAGE_PIXELS = None
@@ -60,7 +58,7 @@ def get_author(filename):
 
 class Files:
 
-    def __init__(self, resolution=600, input_directory=default_input_dir, output_directory=default_output_dir):
+    def __init__(self, resolution=200, input_directory=default_input_dir, output_directory=default_output_dir):
         self.input_directory = input_directory
         self.output_directory = output_directory
         self.resolution = resolution

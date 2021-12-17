@@ -82,7 +82,7 @@ def upgrade():
     op.create_table('SOURCES',
     sa.Column('sources_id', sa.String(length=20), nullable=False),
     sa.Column('origin', sa.String(length=255), nullable=False),
-    sa.Column('similarity', sa.Numeric(precision=3, scale=2), nullable=False),
+    sa.Column('similarity', sa.Float(), nullable=False),
     sa.Column('content_id_FK', sa.String(length=20), nullable=False),
     sa.ForeignKeyConstraint(['content_id_FK'], ['CONTENTS.content_id'], ),
     sa.PrimaryKeyConstraint('sources_id')

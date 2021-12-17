@@ -17,11 +17,10 @@ class UserListResource(Resource):
         json_data = request.get_json()
 
         try:
-            data = user_schema.load(data=json_data)
+            data, errors = user_schema.load(data=json_data)
         except Exception as e:
             return {'message': 'Validation errors', 'errors': e}, HTTPStatus.BAD_REQUEST
 
-        """
         if errors:
             return {'message': 'Validation errors', 'errors': errors}, HTTPStatus.BAD_REQUEST
 
@@ -30,7 +29,7 @@ class UserListResource(Resource):
 
         if Users.get_by_email(data.get('email')):
             return {'message': 'email already used'}, HTTPStatus.BAD_REQUEST
-        """
+
         new_user = Users(**data)
         new_user.save()
 

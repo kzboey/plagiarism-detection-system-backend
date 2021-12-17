@@ -8,10 +8,11 @@ class Users(db.Model):
     password = db.Column(db.String(255), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     first_name = db.Column(db.String(50), nullable=False)
-    other_name = db.Column(db.String(50))
+    other_name = db.Column(db.String(50), default='')
     email = db.Column(db.String(255), nullable=False, unique=True)
-    phone = db.Column(db.String(30))
-    organization = db.Column(db.String(30))
+    phone = db.Column(db.String(30), default='')
+    organization = db.Column(db.String(30), default='')
+    right = db.Column(db.String(50), nullable=False)
 
     tasks = db.relationship('Tasks', backref='user', cascade="all, delete",  passive_deletes=True)
 

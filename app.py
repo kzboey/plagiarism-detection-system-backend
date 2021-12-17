@@ -7,15 +7,13 @@ from flask_uploads import configure_uploads, patch_request_class
 from config import Config
 from extensions import db, jwt, image_set
 
-from controllers.oldusercontroller import login
-from controllers.oldtaskcontroller import task  #remove soon, for testing
 from controllers.logincontroller import LoginResource, RefreshResource, RevokeResource, black_list
 from controllers.usercontroller import UserListResource, UserResource, MeResource
 from controllers.taskcontroller import TaskListResource, TaskResource
 from controllers.submissioncontroller import UploadResource, SubmissionListResource, SubmissionResource
 from controllers.documentcontroller import DocumentListResource
-from controllers.pagecontroller import PageListResource
-from controllers.contentcontroller import ContentListResource
+from controllers.pagecontroller import PageListResource, PageResource
+from controllers.contentcontroller import ContentListResource, ContentListBoxResource, AddContentListResource
 from controllers.sourcecontroller import SourceListResource
 
 
@@ -30,9 +28,6 @@ def create_app(test_config=None):
 
     register_extensions(app)
     register_resources(app)
-
-    # app.register_blueprint(login)
-    # app.register_blueprint(task)
 
     return app
 
@@ -68,9 +63,12 @@ def register_resources(app):
     api.add_resource(SubmissionListResource, '/vtl/submissions/<string:task_id>')
     api.add_resource(SubmissionResource, '/vtl/submission/<string:author>')
 
-    api.add_resource(DocumentListResource, '/vtl/documents')
+    # api.add_resource(DocumentListResource, '/vtl/documents')
+    api.add_resource(PageResource, '/vtl/pages/<string:pid>')
     api.add_resource(PageListResource, '/vtl/pages')
-    api.add_resource(ContentListResource, '/vtl/contents')
+    api.add_resource(ContentListResource, '/vtl/getImagecontents')
+    api.add_resource(ContentListBoxResource, '/vtl/getBoxContents')
+    api.add_resource(AddContentListResource, '/vtl/newcontent')
     api.add_resource(SourceListResource, '/vtl/sources')
 
 

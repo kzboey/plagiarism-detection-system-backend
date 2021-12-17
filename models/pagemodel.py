@@ -15,6 +15,17 @@ class Pages(db.Model):
         return cls.query.filter_by(submission_id_FK=sub_id).all()
 
     @classmethod
+    def get_pages_by_pid(cls, pid):
+        return cls.query.filter_by(page_id=pid).first()
+
+    @classmethod
+    def get_pages_list_by_pid(cls, pids):
+        lists = []
+        for pid in pids:
+            lists.append( cls.query.filter_by(page_id=pid).first())
+        return lists
+
+    @classmethod
     def delete_list(cls, sub_id_fk):
         cls.query.filter_by(submission_id_FK=sub_id_fk).delete()
         db.session.commit()
