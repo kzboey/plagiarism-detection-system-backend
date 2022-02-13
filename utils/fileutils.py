@@ -6,6 +6,8 @@ import os
 import shutil
 from pathlib import Path
 from werkzeug.utils import secure_filename
+import cv2
+import time
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 Image.MAX_IMAGE_PIXELS = None
@@ -58,13 +60,12 @@ def get_author(filename):
 
 class Files:
 
-    def __init__(self, resolution=200, input_directory=default_input_dir, output_directory=default_output_dir):
+    def __init__(self, resolution=500, input_directory=default_input_dir, output_directory=default_output_dir):
         self.input_directory = input_directory
         self.output_directory = output_directory
         self.resolution = resolution
 
     def genoutputfiles(self):
-
         dirs = os.listdir(self.input_directory)
 
         for file in dirs:
@@ -84,8 +85,10 @@ class Files:
             elif 'zip' in extension:
                 self.zip2png(file, file_name)
             elif 'jpg' in extension or 'jpeg' in extension:
-                with Image.open(os.path.join(self.input_directory, file)) as im1:
-                    im1.save(os.path.join(self.output_directory, file_name) + ".png", 'PNG')
+                # with Image.open(os.path.join(self.input_directory, file)) as im1:
+                #     im1.save(os.path.join(self.output_directory, file_name) + ".png", 'PNG', quality=15)
+                img1 = cv2.imread(os.path.join(self.input_directory, file))
+                cv2.imwrite(os.path.join(self.output_directory, file),img1, [cv2.IMWRITE_JPEG_QUALITY, (self.resolution if self.resolution>100 else 20)])
             elif 'png' in extension:
                 file_path = os.path.join(self.input_directory, file)
                 shutil.copy(file_path, self.output_directory)
@@ -119,9 +122,15 @@ class Files:
     def pdf2png(self, directory, pdf_name):
         """poppler_path required for windows"""
         try:
+            time_start1 = time.time()
             pages = convert_from_path(os.path.join(directory, pdf_name+'.pdf'), dpi=self.resolution, poppler_path = r"C:\Users\kaiboey2\Downloads\Release-21.10.0-0\poppler-21.10.0\Library\bin")
+            time_end1 = time.time()
+            print("convert pdf time =", time_end1 - time_start1)
+            time_start2 = time.time()
             for idx, page in enumerate(pages):
                 page.save(os.path.join(self.output_directory, pdf_name) + "_{}.png".format(idx), 'PNG')
+            time_end2 = time.time()
+            print("save pdf time =", time_end2 - time_start2)
         except IndexError as e:
             print(e)
             return False

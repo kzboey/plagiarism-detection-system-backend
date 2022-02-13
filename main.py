@@ -25,6 +25,8 @@ def main():
     # f = open("tempfile3.txt", "w")
     # f.write(base64_str)
     # f.close()
+    list = [1,2,3,4,5]
+    print(list[0])
     time_end = time.time()
     print("Seconds since epoch =", time_end-time_start)
 

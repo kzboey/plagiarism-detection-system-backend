@@ -17,6 +17,10 @@ class Users(db.Model):
     tasks = db.relationship('Tasks', backref='user', cascade="all, delete",  passive_deletes=True)
 
     @classmethod
+    def get_users(cls):
+        return cls.query.all()
+
+    @classmethod
     def get_by_eid(cls, eid):
         return cls.query.filter_by(eid=eid).first()
 
@@ -26,4 +30,8 @@ class Users(db.Model):
 
     def save(self):
         db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()

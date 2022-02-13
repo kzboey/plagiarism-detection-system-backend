@@ -20,7 +20,7 @@ black_list = set()
 class LoginResource(Resource):
 
     def post(self):
-
+        print("get login api")
         json_data = request.get_json()
 
         eid = json_data.get('eid')

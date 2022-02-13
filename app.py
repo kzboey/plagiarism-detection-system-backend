@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -22,9 +24,16 @@ def create_app(test_config=None):
     Initialize app
     # create and configure the app
     """
-    app = Flask(__name__)
+    env = os.environ.get('ENV', 'Development')
+
+    if env == 'Production':
+        config_str = 'config.ProductionConfig'
+    else:
+        config_str = 'config.DevelopmentConfig'
+
+    app = Flask(__name__, static_folder='../build', static_url_path='/')
     CORS(app)
-    app.config.from_object(Config)
+    app.config.from_object(config_str)
 
     register_extensions(app)
     register_resources(app)
@@ -46,7 +55,7 @@ def register_resources(app):
 
     """add or get Users"""
     api.add_resource(UserListResource, '/vtl/users')
-    api.add_resource(UserResource, '/vtl/users/<string:eid>')
+    api.add_resource(UserResource, '/vtl/user')
     api.add_resource(MeResource, '/vtl/me')
 
     """Managing Login"""
