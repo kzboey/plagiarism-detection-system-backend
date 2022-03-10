@@ -1,6 +1,4 @@
 from extensions import db
-from models.pagemodel import Pages
-
 
 class Submissions(db.Model):
     __tablename__ = 'SUBMISSIONS'
@@ -21,8 +19,8 @@ class Submissions(db.Model):
         return cls.query.filter_by(task_id_FK=task_id).all()
 
     @classmethod
-    def get_submission_by_author(cls, author):
-        return cls.query.filter_by(author_name=author).first()
+    def get_submission_by_author(cls, author, task_id):
+        return cls.query.filter_by(author_name=author, task_id_FK=task_id).first()
 
     def save(self):
         db.session.add(self)

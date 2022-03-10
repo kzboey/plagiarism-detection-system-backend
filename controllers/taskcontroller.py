@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask import request
+from flask import request, current_app
 from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from utils.uuidgenerator import gen_randomid
@@ -7,6 +7,8 @@ from http import HTTPStatus
 from models.taskmodel import Tasks
 from schemas.taskschema import TaskSchema
 from common.wrapper import success_wrapper, error_wrapper
+import os
+import shutil
 
 task_schema = TaskSchema()
 task_list_schema = TaskSchema(many=True)
@@ -95,5 +97,17 @@ class TaskResource(Resource):
             return error_wrapper(HTTPStatus.NOT_FOUND, 'Task not found')
 
         task.delete()
+
+        """delete folder in document and pages folder"""
+        delete_folder_name = '{}_{}_{}'.format(task.task_id, task.course_id, task.task_name)
+        os.chdir(current_app.config['UPLOAD_FOLDER'])
+
+        if os.path.exists(delete_folder_name):
+            shutil.rmtree(delete_folder_name)
+
+        os.chdir(current_app.config['IMAGE_FOLDER'])
+
+        if os.path.exists(delete_folder_name):
+            shutil.rmtree(delete_folder_name)
 
         return success_wrapper(HTTPStatus.NO_CONTENT, "success", {})

@@ -9,6 +9,7 @@ from schemas.contentschema import ContentSchema
 from schemas.pageschema import PageSchema
 from common.wrapper import success_wrapper, error_wrapper
 from utils.uuidgenerator import gen_uuid4
+from utils.logger import logger
 
 content_schema = ContentSchema()
 content_list_schema = ContentSchema(many=True)
@@ -70,6 +71,7 @@ class AddContentListResource(Resource):
         try:
             data = content_schema.load(data=json_data)
         except Exception as e:
+            logger.exception(e)
             return error_wrapper(HTTPStatus.BAD_REQUEST, 'Validation errors: {}'.format(e))
 
         content = Contents(**data)

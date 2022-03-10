@@ -6,6 +6,7 @@ from http import HTTPStatus
 from models.usermodel import Users
 from schemas.userschema import UserSchema
 from common.wrapper import success_wrapper, error_wrapper
+from utils.logger import logger
 
 user_schema = UserSchema()
 user_list_schema = UserSchema(many=True)
@@ -19,9 +20,11 @@ class UserListResource(Resource):
         users = Users.get_users()
 
         if users is None:
+            logger.warning('{} : login fail'.format(HTTPStatus.NOT_FOUND))
             return {'message': 'User not found'}, HTTPStatus.NOT_FOUND
 
         resp_data = user_list_schema.dump(users)
+
         return success_wrapper(HTTPStatus.OK, "success", resp_data)
 
     @jwt_required(optional=True)
@@ -31,22 +34,25 @@ class UserListResource(Resource):
         try:
             data = user_schema.load(data=json_data)
         except Exception as e:
+            logger.warning('{} : {}'.format(HTTPStatus.BAD_REQUEST, e))
             return {'message': 'Validation errors', 'errors': e}, HTTPStatus.BAD_REQUEST
 
         # if errors:
         #     return {'message': 'Validation errors', 'errors': errors}, HTTPStatus.BAD_REQUEST
 
         if Users.get_by_eid(data.get('eid')):
+            logger.info('{} : eid already used'.format(HTTPStatus.BAD_REQUEST))
             return {'message': 'eid already used'}, HTTPStatus.BAD_REQUEST
 
         if Users.get_by_email(data.get('email')):
+            logger.info('{} : email already used'.format(HTTPStatus.BAD_REQUEST))
             return {'message': 'email already used'}, HTTPStatus.BAD_REQUEST
 
         new_user = Users(**data)
         new_user.save()
 
-        return user_schema.dump(new_user), HTTPStatus.CREATED
-
+        resp_data = user_schema.dump(new_user)
+        return success_wrapper(HTTPStatus.CREATED, "success", resp_data)
 
 class UserResource(Resource):
 
@@ -57,6 +63,7 @@ class UserResource(Resource):
         user = Users.get_by_eid(eid=current_user)
 
         if user is None:
+            logger.info('{} : User not found'.format(HTTPStatus.NOT_FOUND))
             return {'message': 'User not found'}, HTTPStatus.NOT_FOUND
 
         if current_user == user.eid:
@@ -74,6 +81,7 @@ class UserResource(Resource):
         try:
             data = user_schema.load(data=json_data)
         except Exception as e:
+            logger.exception('{} : Validation errors'.format(HTTPStatus.BAD_REQUEST))
             return error_wrapper(HTTPStatus.BAD_REQUEST, 'Validation errors: {}'.format(e))
 
         edit_eid = request.args.get('eid')
@@ -81,6 +89,7 @@ class UserResource(Resource):
         user = Users.get_by_eid(eid=data['eid'])
 
         if user is None:
+            logger.info('{} : User to be changed not found'.format(HTTPStatus.NOT_FOUND))
             return {'message': 'User to be changed not found'}, HTTPStatus.NOT_FOUND
 
         user.last_name = data.get('last_name') or user.last_name
@@ -104,6 +113,7 @@ class UserResource(Resource):
         user = Users.get_by_eid(eid=del_eid)
 
         if user is None:
+            logger.info('{} : User to be deleted not found'.format(HTTPStatus.NOT_FOUND))
             return {'message': 'User to be deleted not found'}, HTTPStatus.NOT_FOUND
 
         user.delete()

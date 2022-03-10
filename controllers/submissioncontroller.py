@@ -18,6 +18,9 @@ from utils.fileutils import Files, upload_file, get_author, goto_directory
 from utils.uuidgenerator import gen_uuid4
 from common.wrapper import success_wrapper, error_wrapper
 import time
+import re
+from utils.logger import logger
+import threading
 
 submission_schema = SubmissionSchema()
 submission_list_schema = SubmissionListSchema(many=True)
@@ -27,13 +30,16 @@ page_list_schema = PageSchema(many=True)
 def add_files(upload_files,task_id):
     """manage files upload and database records insertion"""
     """get the upload directory"""
-    os.chdir(current_app.config['UPLOAD_FOLDER'])
+
     submission_lists = []
 
     for file in upload_files:
         """check if task exists"""
+        os.chdir(current_app.config['UPLOAD_FOLDER'])
         task = Tasks.get_task_by_id(task_id)
-        tdir = '{}_{}'.format(task.course_id, task.task_name)
+        tdir = '{}_{}_{}'.format(task_id, task.course_id, task.task_name)
+        #if current directory is not task directory
+        # if os.getcwd() != tdir
         goto_directory(tdir)
 
         """check if this student as already submitted a work previously for this task"""
@@ -41,27 +47,35 @@ def add_files(upload_files,task_id):
         goto_directory(author)
         input_dir = os.getcwd()
 
+        file.filename = re.sub("[?|$|!|,|@|#|&|*|(|)]|\s", "", file.filename)
         upload_status = upload_file(file, input_dir)
 
         if upload_status is False:
             return {'message': 'upload file failed'}, HTTPStatus.NOT_FOUND
 
         time_start1 = time.time()
+
         os.chdir(current_app.config['IMAGE_FOLDER'])
         goto_directory(tdir)
         author_dir = goto_directory(author)
-        output_dir = goto_directory('high')
-        fileobj_high = Files(500, input_dir, output_dir)
+        output_dir_high = goto_directory('high')
+        fileobj_high = Files(500, input_dir, output_dir_high)
+        """threding start"""
+        # t_high = threading.Thread(target=fileobj_high.convert2image(file.filename), args=(1,), daemon=True)
         fileobj_high.convert2image(file.filename)
+        """threding end"""
 
         os.chdir(author_dir)
-        output_dir = goto_directory('low')
-        fileobj_low = Files(100, input_dir, output_dir)
+        output_dir_low = goto_directory('low')
+        fileobj_low = Files(100, input_dir, output_dir_low)
+        """threding start"""
+        # t_low = threading.Thread(target=fileobj_low.convert2image(file.filename), args=(1,), daemon=True)
+        """threding end"""
         fileobj_low.convert2image(file.filename)
         time_end1 = time.time()
-        print("convert to image time =", time_end1 - time_start1)
+        logger.info("convert to image time =" + str(time_end1 - time_start1))
         time_start2 = time.time()
-        submission = Submissions.get_submission_by_author(author)
+        submission = Submissions.get_submission_by_author(author,task_id)
 
         """Add to submission table"""
         if not submission:
@@ -85,16 +99,21 @@ def add_files(upload_files,task_id):
 
         document.save()
 
-        for file in os.listdir(output_dir):
-            page = Pages()
-            page.page_id = gen_uuid4()
-            page.page_name = file
-            page.page_path = output_dir
-            page.submission_id_FK = sub_id
+        #bug
+        for file in os.listdir(output_dir_low):
+            #check if page name exist for this user
+            exist_page = Pages.get_pages_by_name(file, sub_id)
+            if exist_page is None:
+                page = Pages()
+                page.page_id = gen_uuid4()
+                page.page_name = file
+                page.page_path = output_dir_low
+                page.page_path_high = output_dir_high
+                page.submission_id_FK = sub_id
+                page.save()
 
-            page.save()
         time_end2 = time.time()
-        print("add records time =", time_end2 - time_start2)
+        logger.info("add records time = {}" .format(str(time_end2 - time_start2)))
 
     return submission_lists;
 
@@ -143,7 +162,8 @@ class SubmissionResource(Resource):
 
     @jwt_required(optional=True)
     def delete(self, author):
-        submission = Submissions.get_submission_by_author(author)
+        task_id = request.args.get('task_id')
+        submission = Submissions.get_submission_by_author(author,task_id)
 
         if submission is None:
             return error_wrapper(HTTPStatus.NOT_FOUND, 'Submission not found')
@@ -153,14 +173,17 @@ class SubmissionResource(Resource):
 
         try:
             if os.path.exists(document.document_path):
+                os.chdir('../')
+                list(map(lambda page: shutil.rmtree(page.page_path[:-3]), pages))
                 shutil.rmtree(document.document_path)
-                list(map(lambda page: shutil.rmtree(page.page_path), pages))
-            Pages.delete_list(submission.submission_id)
-            document.delete()
-            submission.delete()
+                Pages.delete_list(submission.submission_id)
+                document.delete()
+                submission.delete()
         except IndexError as e:
+            logger.exception(e)
             return error_wrapper(HTTPStatus.NOT_FOUND, 'Deletion error')
 
+        logger.info('{} : success'.format(HTTPStatus.NO_CONTENT,))
         return success_wrapper(HTTPStatus.NO_CONTENT, "success", {})
 
 

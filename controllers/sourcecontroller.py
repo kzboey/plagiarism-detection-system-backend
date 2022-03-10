@@ -7,6 +7,7 @@ from utils.uuidgenerator import gen_uuid4
 from models.sourcemodel import Sources
 from schemas.sourceschema import SourceSchema
 from common.wrapper import success_wrapper, error_wrapper
+from utils.logger import logger
 
 source_schema = SourceSchema()
 
@@ -22,6 +23,7 @@ class SourceListResource(Resource):
         try:
             data = source_schema.load(data=json_data)
         except Exception as e:
+            logger.exception(e)
             return error_wrapper(HTTPStatus.BAD_REQUEST, 'Validation errors: {}'.format(e))
 
         source = Sources(**data)

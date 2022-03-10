@@ -1,0 +1,9 @@
+2022-03-10 19:45:32,135 - WARNING -  * Debugger is active!
+2022-03-10 19:45:32,146 - INFO -  * Debugger PIN: 112-232-922
+2022-03-10 19:45:32,610 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2022-03-10 19:45:36,232 - INFO - download high resolution images
+2022-03-10 19:45:38,276 - INFO - 127.0.0.1 - - [10/Mar/2022 19:45:38] "GET /vtl/downloadpages/438101 HTTP/1.1" 200 -
+2022-03-10 19:46:38,722 - INFO - download high resolution images
+2022-03-10 19:46:39,818 - INFO - 127.0.0.1 - - [10/Mar/2022 19:46:39] "GET /vtl/downloadpages/438101 HTTP/1.1" 200 -
+2022-03-10 19:49:25,997 - INFO - download high resolution images
+2022-03-10 19:49:27,158 - INFO - 127.0.0.1 - - [10/Mar/2022 19:49:27] "GET /vtl/downloadpages/438101 HTTP/1.1" 200 -

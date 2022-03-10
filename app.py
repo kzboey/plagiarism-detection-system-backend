@@ -1,30 +1,26 @@
-import os
-
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful import Api
 from flask_uploads import configure_uploads, patch_request_class
 
-from config import Config
 from extensions import db, jwt, image_set
 
 from controllers.logincontroller import LoginResource, RefreshResource, RevokeResource, black_list
 from controllers.usercontroller import UserListResource, UserResource, MeResource
 from controllers.taskcontroller import TaskListResource, TaskResource
 from controllers.submissioncontroller import UploadResource, SubmissionListResource, SubmissionResource
-from controllers.documentcontroller import DocumentListResource
-from controllers.pagecontroller import PageListResource, PageResource
+from controllers.pagecontroller import PageListResource, PageResource, PageListHighResource
 from controllers.contentcontroller import ContentListResource, ContentListBoxResource, AddContentListResource
 from controllers.sourcecontroller import SourceListResource
-
+from environ import get_env
 
 def create_app(test_config=None):
     """
     Initialize app
     # create and configure the app
     """
-    env = os.environ.get('ENV', 'Development')
+    env = get_env()
 
     if env == 'Production':
         config_str = 'config.ProductionConfig'
@@ -79,6 +75,9 @@ def register_resources(app):
     api.add_resource(ContentListBoxResource, '/vtl/getBoxContents')
     api.add_resource(AddContentListResource, '/vtl/newcontent')
     api.add_resource(SourceListResource, '/vtl/sources')
+
+    """testing downlad high resolution files"""
+    api.add_resource(PageListHighResource, '/vtl/downloadpages/<string:task_id>')
 
 
 if __name__ == '__main__':
