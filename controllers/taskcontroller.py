@@ -7,12 +7,12 @@ from http import HTTPStatus
 from models.taskmodel import Tasks
 from schemas.taskschema import TaskSchema
 from common.wrapper import success_wrapper, error_wrapper
-import os
 import shutil
+from utils.logger import logger
+from os.path import join, exists
 
 task_schema = TaskSchema()
 task_list_schema = TaskSchema(many=True)
-
 
 class TaskListResource(Resource):
     """get all task belonging to user or add new task"""
@@ -93,6 +93,9 @@ class TaskResource(Resource):
         # delete task
         task = Tasks.get_task_by_id(task_id)
 
+        UPLOADED_DOCUMENT_PATH = current_app.config['UPLOAD_FOLDER']
+        UPLOADED_IMAGES_PATH = current_app.config['IMAGE_FOLDER']
+
         if task is None:
             return error_wrapper(HTTPStatus.NOT_FOUND, 'Task not found')
 
@@ -100,14 +103,15 @@ class TaskResource(Resource):
 
         """delete folder in document and pages folder"""
         delete_folder_name = '{}_{}_{}'.format(task.task_id, task.course_id, task.task_name)
-        os.chdir(current_app.config['UPLOAD_FOLDER'])
 
-        if os.path.exists(delete_folder_name):
-            shutil.rmtree(delete_folder_name)
+        deleted_document_path = join(UPLOADED_DOCUMENT_PATH, delete_folder_name).replace("\\", "/")
+        if exists(deleted_document_path):
+            shutil.rmtree(deleted_document_path)
+            logger.info("Path: {} Deleted ".format(deleted_document_path))
 
-        os.chdir(current_app.config['IMAGE_FOLDER'])
-
-        if os.path.exists(delete_folder_name):
-            shutil.rmtree(delete_folder_name)
+        deleted_image_path = join(UPLOADED_IMAGES_PATH, delete_folder_name).replace("\\", "/")
+        if exists(deleted_image_path):
+            shutil.rmtree(deleted_image_path)
+            logger.info("Path: {} Deleted ".format(deleted_image_path))
 
         return success_wrapper(HTTPStatus.NO_CONTENT, "success", {})

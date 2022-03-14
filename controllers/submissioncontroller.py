@@ -4,6 +4,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask import current_app
 from http import HTTPStatus
 import os
+from os.path import join, exists
 import shutil
 
 from models.submissionmodel import Submissions
@@ -14,7 +15,7 @@ from models.taskmodel import Tasks
 from schemas.submissionschema import SubmissionSchema, SubmissionListSchema
 from schemas.pageschema import PageSchema
 
-from utils.fileutils import Files, upload_file, get_author, goto_directory
+from utils.fileutils import Files, upload_file, get_author, make_directory
 from utils.uuidgenerator import gen_uuid4
 from common.wrapper import success_wrapper, error_wrapper
 import time
@@ -32,52 +33,56 @@ def add_files(upload_files,task_id):
     """get the upload directory"""
 
     submission_lists = []
+    UPLOADED_DOCUMENT_PATH = current_app.config['UPLOAD_FOLDER']
+    UPLOADED_IMAGES_PATH = current_app.config['IMAGE_FOLDER']
 
     for file in upload_files:
         """check if task exists"""
-        os.chdir(current_app.config['UPLOAD_FOLDER'])
+
+        """***Uploading Documents Start***"""
         task = Tasks.get_task_by_id(task_id)
-        tdir = '{}_{}_{}'.format(task_id, task.course_id, task.task_name)
-        #if current directory is not task directory
-        # if os.getcwd() != tdir
-        goto_directory(tdir)
+        tdirname = '{}_{}_{}'.format(task_id, task.course_id, task.task_name)
 
         """check if this student as already submitted a work previously for this task"""
         author = get_author(file.filename)
-        goto_directory(author)
-        input_dir = os.getcwd()
+        doc_author_directory_name = join(join(UPLOADED_DOCUMENT_PATH, tdirname), author)
+        doc_author_directory = make_directory(doc_author_directory_name.replace("\\", "/"))
 
         file.filename = re.sub("[?|$|!|,|@|#|&|*|(|)]|\s", "", file.filename)
-        upload_status = upload_file(file, input_dir)
+        upload_status = upload_file(file, doc_author_directory)
 
         if upload_status is False:
-            return {'message': 'upload file failed'}, HTTPStatus.NOT_FOUND
+            return error_wrapper(HTTPStatus.NOT_FOUND, {'message': 'upload file failed'})
 
+        """***Uploading Documents End***"""
+
+        """***Uploading Page Start***"""
         time_start1 = time.time()
-
-        os.chdir(current_app.config['IMAGE_FOLDER'])
-        goto_directory(tdir)
-        author_dir = goto_directory(author)
-        output_dir_high = goto_directory('high')
-        fileobj_high = Files(500, input_dir, output_dir_high)
-        """threding start"""
+        "high resolution image path"
+        high_resolution_path_name = join(join(join(UPLOADED_IMAGES_PATH, tdirname), author), 'high')
+        page_high_resolution_path = make_directory(high_resolution_path_name.replace("\\","/"))
+        fileobj_high = Files(500, doc_author_directory, page_high_resolution_path)
+        """threading start"""
         # t_high = threading.Thread(target=fileobj_high.convert2image(file.filename), args=(1,), daemon=True)
         fileobj_high.convert2image(file.filename)
-        """threding end"""
+        """threading end"""
 
-        os.chdir(author_dir)
-        output_dir_low = goto_directory('low')
-        fileobj_low = Files(100, input_dir, output_dir_low)
+        "low resolution image path"
+        low_resolution_path_name = join(join(join(UPLOADED_IMAGES_PATH, tdirname), author), 'low')
+        page_low_resolution_path = make_directory(low_resolution_path_name.replace("\\","/"))
+        fileobj_low = Files(100, doc_author_directory, page_low_resolution_path)
         """threding start"""
         # t_low = threading.Thread(target=fileobj_low.convert2image(file.filename), args=(1,), daemon=True)
         """threding end"""
         fileobj_low.convert2image(file.filename)
         time_end1 = time.time()
         logger.info("convert to image time =" + str(time_end1 - time_start1))
-        time_start2 = time.time()
-        submission = Submissions.get_submission_by_author(author,task_id)
+        """***Uploading Page End***"""
 
         """Add to submission table"""
+        time_start2 = time.time()
+        submission = Submissions.get_submission_by_author(author, task_id)
+
         if not submission:
             submission = Submissions()
             sub_id = gen_uuid4()
@@ -94,21 +99,21 @@ def add_files(upload_files,task_id):
         document = Documents()
         document.document_id = gen_uuid4()
         document.document_name = file.filename
-        document.document_path = input_dir
+        document.document_path = doc_author_directory
         document.submission_id_FK = sub_id
 
         document.save()
 
         #bug
-        for file in os.listdir(output_dir_low):
+        for file in os.listdir(page_low_resolution_path):
             #check if page name exist for this user
             exist_page = Pages.get_pages_by_name(file, sub_id)
             if exist_page is None:
                 page = Pages()
                 page.page_id = gen_uuid4()
                 page.page_name = file
-                page.page_path = output_dir_low
-                page.page_path_high = output_dir_high
+                page.page_path = page_low_resolution_path
+                page.page_path_high = page_high_resolution_path
                 page.submission_id_FK = sub_id
                 page.save()
 
@@ -162,7 +167,13 @@ class SubmissionResource(Resource):
 
     @jwt_required(optional=True)
     def delete(self, author):
+        UPLOADED_DOCUMENT_PATH = current_app.config['UPLOAD_FOLDER']
+        UPLOADED_IMAGES_PATH = current_app.config['IMAGE_FOLDER']
+
         task_id = request.args.get('task_id')
+        task = Tasks.get_task_by_id(task_id)
+        delete_folder_name = '{}_{}_{}'.format(task.task_id, task.course_id, task.task_name)
+
         submission = Submissions.get_submission_by_author(author,task_id)
 
         if submission is None:
@@ -172,10 +183,19 @@ class SubmissionResource(Resource):
         pages = Pages.get_pages_by_subid(submission.submission_id)
 
         try:
-            if os.path.exists(document.document_path):
-                os.chdir('../')
-                list(map(lambda page: shutil.rmtree(page.page_path[:-3]), pages))
+            if exists(document.document_path):
+
+                shutil.rmtree(pages[0].page_path[:-3])
                 shutil.rmtree(document.document_path)
+
+                deleted_folder_path = join(UPLOADED_DOCUMENT_PATH, delete_folder_name).replace("\\", "/")
+                if not os.listdir(deleted_folder_path):
+                    os.rmdir(deleted_folder_path)
+
+                deleted_image_path = join(UPLOADED_IMAGES_PATH, delete_folder_name).replace("\\", "/")
+                if not os.listdir(deleted_image_path):
+                    os.rmdir(deleted_image_path)
+
                 Pages.delete_list(submission.submission_id)
                 document.delete()
                 submission.delete()

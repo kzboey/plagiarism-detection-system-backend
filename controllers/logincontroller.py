@@ -31,7 +31,7 @@ class LoginResource(Resource):
 
         if not user or not check_password(password, user.password):
             logger.warning('{} : login fail'.format(HTTPStatus.UNAUTHORIZED))
-            return error_wrapper(HTTPStatus.UNAUTHORIZED, "login fail")
+            return error_wrapper(HTTPStatus.UNAUTHORIZED, "Invalid username or password")
 
         access_token = create_access_token(identity=user.eid, fresh=True)
         refresh_token = create_refresh_token(identity=user.eid)

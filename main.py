@@ -12,7 +12,7 @@ from pdf2image import convert_from_path
 import PyPDF2
 from PyPDF2 import PdfFileWriter
 from docx2pdf import convert
-
+from utils.fileutils import docx2pdf2
 
 
 def encodebase64(file):
@@ -26,7 +26,7 @@ def encodebase64(file):
 def convert_2_image(fpath,fname):
 
     file = os.path.join(fpath, fname)
-    pdf = PyPDF2.PdfFileReader(file+'.pdf')
+    pdf = PyPDF2.PdfFileReader(file)
 
     for page in range(pdf.getNumPages()):
         pgnum = page+1
@@ -60,10 +60,10 @@ def docx2pdf(directory,docx_name,extension):
 
 def main():
     time_start = time.time()
-    fpath = "C:/Users/kaiboey2/Documents/test_split_convert/"
+    fpath = "C:/temp/documents/433910_CS665_testos/panriwei/"
     fname = 'panriwei_89420_8905023_PANRIWEI_55243049_1'
     # convert_2_image(fpath,fname)
-    docx2pdf(fpath,fname,'.docx')
+    docx2pdf2(fpath,fname,'.docx')
     # base64_str = encodebase64(file)
     # f = open("tempfile3.txt", "w")
     # f.write(base64_str)
