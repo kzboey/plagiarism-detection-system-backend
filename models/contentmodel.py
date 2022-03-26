@@ -19,7 +19,7 @@ class Contents(db.Model):
     @classmethod
     def get_content_by_pid(cls, pids):
         # lists = db.session.query(Contents).all()
-        lists = [db.session.query(Contents.content_id, Contents.content_type, Contents.content_value, Contents.position_x1, Contents.position_x2, Contents.position_y1, Contents.position_y2, Contents.confidence, Sources.sources_id, Sources.similarity, Sources.origin)\
+        lists = [db.session.query(Contents.content_id, Contents.content_type, Contents.content_value, Contents.position_x1, Contents.position_x2, Contents.position_y1, Contents.position_y2, Contents.confidence, Contents.page_id_FK, Sources.sources_id, Sources.similarity, Sources.origin)\
             .filter(Contents.content_id==Sources.content_id_FK)\
             .filter(Contents.page_id_FK==pid).all() for pid in pids]
         return lists
@@ -27,7 +27,7 @@ class Contents(db.Model):
     @classmethod
     def get_content_by_pid2(cls, pid):
         lists = db.session.query(Contents.content_id, Contents.content_type, Contents.content_value, Contents.position_x1, Contents.position_x2, Contents.position_y1, Contents.position_y2, Contents.confidence)\
-            .filter(Contents.page_id_FK==pid).all()
+            .filter(Contents.page_id_FK==pid, Contents.content_id==Sources.content_id_FK).all()
         return lists
 
     def save(self):

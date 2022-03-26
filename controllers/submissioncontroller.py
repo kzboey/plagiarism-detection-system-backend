@@ -4,7 +4,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask import current_app
 from http import HTTPStatus
 import os
-from os.path import join, exists
+from os.path import join, exists, splitext
 import shutil
 
 from models.submissionmodel import Submissions
@@ -36,89 +36,92 @@ def add_files(upload_files,task_id):
     UPLOADED_DOCUMENT_PATH = current_app.config['UPLOAD_FOLDER']
     UPLOADED_IMAGES_PATH = current_app.config['IMAGE_FOLDER']
 
-    for file in upload_files:
-        """check if task exists"""
+    file = upload_files
+    print("handling file {}".format(file.filename))
 
-        """***Uploading Documents Start***"""
-        task = Tasks.get_task_by_id(task_id)
-        tdirname = '{}_{}_{}'.format(task_id, task.course_id, task.task_name)
+    """***Uploading Documents Start***"""
+    task = Tasks.get_task_by_id(task_id)
+    tdirname = '{}_{}_{}'.format(task_id, task.course_id, task.task_name)
 
-        """check if this student as already submitted a work previously for this task"""
-        author = get_author(file.filename)
-        doc_author_directory_name = join(join(UPLOADED_DOCUMENT_PATH, tdirname), author)
-        doc_author_directory = make_directory(doc_author_directory_name.replace("\\", "/"))
+    """check if this student as already submitted a work previously for this task"""
+    author = get_author(file.filename)
+    doc_author_directory_name = join(join(UPLOADED_DOCUMENT_PATH, tdirname), author)
+    doc_author_directory = make_directory(doc_author_directory_name.replace("\\", "/"))
 
-        file.filename = re.sub("[?|$|!|,|@|#|&|*|(|)]|\s", "", file.filename)
-        upload_status = upload_file(file, doc_author_directory)
+    file.filename = re.sub("[?|$|!|,|@|#|&|*|(|)]|\s", "", file.filename)
+    upload_status = upload_file(file, doc_author_directory)
 
-        if upload_status is False:
-            return error_wrapper(HTTPStatus.NOT_FOUND, {'message': 'upload file failed'})
+    if upload_status is False:
+        return error_wrapper(HTTPStatus.NOT_FOUND, {'message': '{} upload failed'.format(file.filename)})
 
-        """***Uploading Documents End***"""
+    """***Uploading Documents End***"""
 
-        """***Uploading Page Start***"""
-        time_start1 = time.time()
-        "high resolution image path"
-        high_resolution_path_name = join(join(join(UPLOADED_IMAGES_PATH, tdirname), author), 'high')
-        page_high_resolution_path = make_directory(high_resolution_path_name.replace("\\","/"))
-        fileobj_high = Files(500, doc_author_directory, page_high_resolution_path)
-        """threading start"""
-        # t_high = threading.Thread(target=fileobj_high.convert2image(file.filename), args=(1,), daemon=True)
-        fileobj_high.convert2image(file.filename)
-        """threading end"""
+    """***Uploading Page Start***"""
+    time_start1 = time.time()
+    "high resolution image path"
+    high_resolution_path_name = join(join(join(UPLOADED_IMAGES_PATH, tdirname), author), 'high')
+    page_high_resolution_path = make_directory(high_resolution_path_name.replace("\\","/"))
+    fileobj_high = Files(500, doc_author_directory, page_high_resolution_path)
+    """threading start"""
+    # t_high = threading.Thread(target=fileobj_high.convert2image(file.filename), args=(1,), daemon=True)
+    fileobj_high.convert2image(file.filename)
+    """threading end"""
 
-        "low resolution image path"
-        low_resolution_path_name = join(join(join(UPLOADED_IMAGES_PATH, tdirname), author), 'low')
-        page_low_resolution_path = make_directory(low_resolution_path_name.replace("\\","/"))
-        fileobj_low = Files(100, doc_author_directory, page_low_resolution_path)
-        """threding start"""
-        # t_low = threading.Thread(target=fileobj_low.convert2image(file.filename), args=(1,), daemon=True)
-        """threding end"""
-        fileobj_low.convert2image(file.filename)
-        time_end1 = time.time()
-        logger.info("convert to image time =" + str(time_end1 - time_start1))
-        """***Uploading Page End***"""
+    "low resolution image path"
+    low_resolution_path_name = join(join(join(UPLOADED_IMAGES_PATH, tdirname), author), 'low')
+    page_low_resolution_path = make_directory(low_resolution_path_name.replace("\\","/"))
+    fileobj_low = Files(100, doc_author_directory, page_low_resolution_path)
+    """threding start"""
+    # t_low = threading.Thread(target=fileobj_low.convert2image(file.filename), args=(1,), daemon=True)
+    """threding end"""
+    fileobj_low.convert2image(file.filename)
+    time_end1 = time.time()
+    logger.info("convert to image time =" + str(time_end1 - time_start1))
+    """***Uploading Page End***"""
 
-        """Add to submission table"""
-        time_start2 = time.time()
-        submission = Submissions.get_submission_by_author(author, task_id)
+    """Add to submission table"""
+    time_start2 = time.time()
+    submission = Submissions.get_submission_by_author(author, task_id)
 
-        if not submission:
-            submission = Submissions()
-            sub_id = gen_uuid4()
-            submission.submission_id = sub_id
-            submission.author_name = author
-            submission.task_id_FK = task_id
-        else:
-            sub_id = submission.submission_id
-            submission.author_name = author
+    if not submission:
+        submission = Submissions()
+        sub_id = gen_uuid4()
+        submission.submission_id = sub_id
+        submission.author_name = author
+        submission.task_id_FK = task_id
+    else:
+        sub_id = submission.submission_id
+        submission.author_name = author
 
-        submission.save()
-        submission_lists.append(submission)
+    submission.save()
+    submission_lists.append(submission)
 
-        document = Documents()
-        document.document_id = gen_uuid4()
-        document.document_name = file.filename
-        document.document_path = doc_author_directory
-        document.submission_id_FK = sub_id
+    document = Documents()
+    document.document_id = gen_uuid4()
+    document.document_name = file.filename
+    document.document_path = doc_author_directory
+    document.submission_id_FK = sub_id
 
-        document.save()
+    document.save()
 
-        #bug
-        for file in os.listdir(page_low_resolution_path):
-            #check if page name exist for this user
-            exist_page = Pages.get_pages_by_name(file, sub_id)
-            if exist_page is None:
-                page = Pages()
-                page.page_id = gen_uuid4()
-                page.page_name = file
-                page.page_path = page_low_resolution_path
-                page.page_path_high = page_high_resolution_path
-                page.submission_id_FK = sub_id
-                page.save()
+    #bug
+    for file in os.listdir(page_low_resolution_path):
+        #check if page name exist for this user
+        file_name, extension = splitext(file)
+        pngfile = file_name + '.png'
+        exist_page = Pages.get_pages_by_name(file, pngfile, sub_id)
+        if exist_page is None:
+            page = Pages()
+            page.page_id = gen_uuid4()
+            page.page_name = file
+            page.page_name_high = pngfile if os.path.exists(join(page_high_resolution_path, pngfile)) else ''
+            page.page_path = page_low_resolution_path
+            page.page_path_high = page_high_resolution_path
+            page.submission_id_FK = sub_id
+            page.save()
 
-        time_end2 = time.time()
-        logger.info("add records time = {}" .format(str(time_end2 - time_start2)))
+    time_end2 = time.time()
+    logger.info("add records time = {}" .format(str(time_end2 - time_start2)))
 
     return submission_lists;
 
@@ -128,8 +131,13 @@ class UploadResource(Resource):
     @jwt_required(optional=True)
     def post(self, task_id):
         """new uploaded files"""
-        # file = request.files.get('document')
-        uploaded_files = request.files.getlist("document")
+        try:
+            # uploaded_files = request.files.getlist("document")
+            uploaded_files = request.files["file"]
+            print(uploaded_files.filename)
+        except Exception as e:
+            logger.exception(e)
+            return error_wrapper(HTTPStatus.BAD_REQUEST, "{} uploaded failed".format(uploaded_files.filename))
 
         if uploaded_files is None:
             return {'message': 'file not found'}, HTTPStatus.NOT_FOUND
@@ -137,7 +145,7 @@ class UploadResource(Resource):
         submissions = add_files(uploaded_files,task_id)
 
         resp_data = submission_list_schema.dump(submissions)
-        return success_wrapper(HTTPStatus.OK, "success", resp_data)
+        return success_wrapper(HTTPStatus.OK, "{} uploaded success".format(uploaded_files.filename), resp_data)
 
 
 class SubmissionListResource(Resource):

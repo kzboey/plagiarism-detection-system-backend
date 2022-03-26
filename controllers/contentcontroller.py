@@ -27,32 +27,6 @@ class ContentListResource(Resource):
 
         page_content_list = Contents.get_content_by_pid(data)
 
-        dict = {}
-        for pid in data:
-            pid_contents = Contents.get_content_by_pid2(pid)
-            dict[pid] = content_list_schema.dump(pid_contents)
-
-        lists = []
-
-        for contents in page_content_list:
-            for page in contents:
-                lists.append(page)
-
-        resp_data = content_list_schema.dump(lists)
-        return success_wrapper(HTTPStatus.OK, "success", dict)
-
-
-class ContentListBoxResource(Resource):
-
-    @jwt_required(optional=True)
-    def post(self):
-        """get data: page_ids"""
-        json_data = request.get_json()
-
-        data = json_data["data"]
-
-        page_content_list = Contents.get_content_by_pid(data)
-
         lists = []
 
         for contents in page_content_list:
@@ -61,6 +35,7 @@ class ContentListBoxResource(Resource):
 
         resp_data = content_list_schema.dump(lists)
         return success_wrapper(HTTPStatus.OK, "success", resp_data)
+
 
 class AddContentListResource(Resource):
     """testing"""

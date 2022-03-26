@@ -11,7 +11,7 @@ from controllers.usercontroller import UserListResource, UserResource, MeResourc
 from controllers.taskcontroller import TaskListResource, TaskResource
 from controllers.submissioncontroller import UploadResource, SubmissionListResource, SubmissionResource
 from controllers.pagecontroller import PageListResource, PageResource, PageListHighResource
-from controllers.contentcontroller import ContentListResource, ContentListBoxResource, AddContentListResource
+from controllers.contentcontroller import ContentListResource, AddContentListResource
 from controllers.sourcecontroller import SourceListResource
 from environ import get_env
 
@@ -24,6 +24,8 @@ def create_app(test_config=None):
 
     if env == 'Production':
         config_str = 'config.ProductionConfig'
+    elif env == 'Uat':
+        config_str = 'config.UatConfig'
     else:
         config_str = 'config.DevelopmentConfig'
 
@@ -71,8 +73,8 @@ def register_resources(app):
     # api.add_resource(DocumentListResource, '/vtl/documents')
     api.add_resource(PageResource, '/vtl/pages/<string:pid>')
     api.add_resource(PageListResource, '/vtl/pages')
-    api.add_resource(ContentListResource, '/vtl/getImagecontents')
-    api.add_resource(ContentListBoxResource, '/vtl/getBoxContents')
+    # api.add_resource(ContentListResource, '/vtl/getImagecontents')
+    api.add_resource(ContentListResource, '/vtl/getContents')
     api.add_resource(AddContentListResource, '/vtl/newcontent')
     api.add_resource(SourceListResource, '/vtl/sources')
 

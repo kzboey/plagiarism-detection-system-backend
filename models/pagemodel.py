@@ -7,6 +7,7 @@ class Pages(db.Model):
 
     page_id = db.Column(db.String(20), primary_key=True)
     page_name = db.Column(db.String(255), nullable=False)
+    page_name_high = db.Column(db.String(255), nullable=False)
     page_path = db.Column(db.String(255), nullable=False)
     page_path_high = db.Column(db.String(255), nullable=False)
     submission_id_FK = db.Column(db.String(20), db.ForeignKey('SUBMISSIONS.submission_id', ondelete="CASCADE"), nullable=False)
@@ -15,6 +16,7 @@ class Pages(db.Model):
 
     @classmethod
     def get_pages_by_submission(cls, task_id):
+        """for downloading file, temporarily unused"""
         return db.session.query(Pages.page_name, Pages.page_path_high).filter(Pages.submission_id_FK==Submissions.submission_id, Submissions.task_id_FK==task_id).all()
 
     @classmethod
@@ -33,8 +35,8 @@ class Pages(db.Model):
         return lists
 
     @classmethod
-    def get_pages_by_name(cls, file, sub_id):
-        return cls.query.filter_by(page_name=file, submission_id_FK=sub_id).first()
+    def get_pages_by_name(cls, file, pngfile, sub_id):
+        return cls.query.filter_by(page_name=file, page_name_high=pngfile, submission_id_FK=sub_id).first()
 
     @classmethod
     def delete_list(cls, sub_id_fk):

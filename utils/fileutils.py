@@ -73,14 +73,9 @@ def docx2pdf2(directory,docx_name,extension):
     input_file = join(directory, docx_name+extension).replace("\\", "/") # file | Input file to perform the operation on.
     pdf_name = join(directory, output_file_name).replace("\\", "/")
     try:
-        word = client.DispatchEx("Word.Application")
-        worddoc = word.Documents.Open(input_file,ReadOnly = 1)
-        worddoc.SaveAs(pdf_name, FileFormat = 17)
-        worddoc.Close()
-        return pdf_name
+        convert(input_file, pdf_name)
     except IndexError as e:
         print(e)
-
 
 class Files:
 
@@ -110,8 +105,8 @@ class Files:
             if 'pdf' in extension:
                 self.pdf2png(self.input_directory, file_name)
             elif 'docx' in extension or 'doc' in extension:
-                docx2pdf2(self.input_directory,file_name,extension)
-                # self.docx2image(self.input_directory, file_name, extension)
+                # docx2pdf2(self.input_directory,file_name,extension)
+                self.docx2image(self.input_directory, file_name, extension)
             elif 'zip' in extension:
                 self.zip2png(file, file_name)
             elif 'jpg' in extension or 'jpeg' in extension:

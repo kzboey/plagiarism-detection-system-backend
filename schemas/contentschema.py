@@ -13,6 +13,7 @@ class ContentSchema(Schema):
     position_y1 = fields.Float()
     position_y2 = fields.Float()
     confidence = fields.Float()
+    page_id_FK = fields.String()
     sources_id = fields.String(dump_only=True)
     origin = fields.String(dump_only=True)
     similarity = fields.Float(dump_only=True)

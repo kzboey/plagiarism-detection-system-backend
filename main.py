@@ -13,7 +13,9 @@ import PyPDF2
 from PyPDF2 import PdfFileWriter
 from docx2pdf import convert
 from utils.fileutils import docx2pdf2
-
+from sshtunnel import SSHTunnelForwarder
+import mysql.connector
+from subprocess import Popen
 
 def encodebase64(file):
 
@@ -58,20 +60,18 @@ def docx2pdf(directory,docx_name,extension):
 
     return True
 
+
 def main():
-    time_start = time.time()
     fpath = "C:/temp/documents/433910_CS665_testos/panriwei/"
     fname = 'panriwei_89420_8905023_PANRIWEI_55243049_1'
-    # convert_2_image(fpath,fname)
-    docx2pdf2(fpath,fname,'.docx')
-    # base64_str = encodebase64(file)
-    # f = open("tempfile3.txt", "w")
-    # f.write(base64_str)
-    # f.close()
-    list = [1,2,3,4,5]
-    print(list[0])
-    time_end = time.time()
-    print("Seconds since epoch =", time_end-time_start)
+    fpath_2 = "/home/csadmin/visal/documents/437971_CS2222_test/panriwei/"
+    fname_2 = 'panriwei_89420_8905023_PANRIWEI_55243049_1'
+    LIBRE_OFFICE = '/etc/libreoffice/soffice'
+    # docx2pdf2(fpath,fname,'.docx')
+    # subprocess.call(['soffice', '--convert-to', 'pdf', '--outdir', fpath, '/home/csadmin/visal'])
+    # p = Popen([LIBRE_OFFICE, '--headless', '--convert-to', 'pdf', '--outdir',
+    #            '/home/csadmin/visal', '/home/csadmin/visal/documents/437971_CS2222_test/panriwei/panriwei_89420_8905023_PANRIWEI_55243049_1.docx'])
+    # p.communicate()
 
 if __name__ == "__main__":
     main()

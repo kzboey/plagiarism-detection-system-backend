@@ -7,6 +7,7 @@ class PageSchema(Schema):
 
     page_id = fields.String()
     page_name = fields.String()
+    page_name_high = fields.String()
     page_path = fields.String()
     page_path_high = fields.String()
 

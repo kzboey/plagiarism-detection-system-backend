@@ -34,6 +34,11 @@ class DevelopmentConfig(Config):
         'MYSQL_PASSWORD': 'Passw0rd',
         'MYSQL_SERVER': 'localhost:3306',
         'DB_NAME': 'vtl'
+        # 'MYSQL_USERNAME': 'test_user',
+        # 'MYSQL_PASSWORD': '%Passw0rd',
+        # 'MYSQL_SERVER': '144.214.10.27',
+        # 'DB_NAME': 'vtl'
+
     }
     SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://{MYSQL_USERNAME}:{MYSQL_PASSWORD}@{MYSQL_SERVER}/{DB_NAME}'.format(**DB_DATA)
 
@@ -61,4 +66,21 @@ class ProductionConfig(Config):
     ZIP_FOLDER = '/home/csadmin/visal/zip/'
     # IMAGE_FOLDER_HIGH = '/home/csadmin/visal/pages/500'
     # IMAGE_FOLDER_LOW = '/home/csadmin/visal/pages/200'
+    MAX_CONTENT_LENGTH = 32 * 1024 * 1024
+
+
+class UatConfig(Config):
+    SECRET_KEY = 'super-super-secret-key'
+
+    DB_DATA = {
+        'MYSQL_USERNAME': 'test_user',
+        'MYSQL_PASSWORD': '%Passw0rd',
+        'MYSQL_SERVER': '144.214.10.27:3306',
+        'DB_NAME': 'vtl_test'
+    }
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://{MYSQL_USERNAME}:{MYSQL_PASSWORD}@{MYSQL_SERVER}/{DB_NAME}'.format(**DB_DATA)
+
+    UPLOAD_FOLDER = '/home/csadmin/visal_uat/documents'
+    IMAGE_FOLDER = '/home/csadmin/visal_uat/pages'
+    ZIP_FOLDER = '/home/csadmin/visal/zip/'
     MAX_CONTENT_LENGTH = 32 * 1024 * 1024
