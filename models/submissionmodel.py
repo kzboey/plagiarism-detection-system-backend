@@ -16,7 +16,7 @@ class Submissions(db.Model):
 
     @classmethod
     def get_task_submissions(cls, task_id):
-        return cls.query.filter_by(task_id_FK=task_id).all()
+        return cls.query.filter_by(task_id_FK=task_id).order_by(Submissions.modified_date.desc()).all()
 
     @classmethod
     def get_submission_by_author(cls, author, task_id):

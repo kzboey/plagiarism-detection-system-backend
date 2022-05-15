@@ -55,7 +55,7 @@ def make_directory(dir):
         os.makedirs(dirName)
         logger.info("Directory {} Created ".format(dirName))
     except FileExistsError:
-        logger.info("Directory {} already exists ".format(dirName))
+        logger.exception("Directory {} already exists ".format(dirName))
 
     return dirName
 
@@ -75,7 +75,7 @@ def docx2pdf2(directory,docx_name,extension):
     try:
         convert(input_file, pdf_name)
     except IndexError as e:
-        print(e)
+        logger.exception(e)
 
 class Files:
 
@@ -91,7 +91,7 @@ class Files:
             if isdir(check_dir_exist) and file != '__MACOSX':   #handle for mac hidden file
                 temp_obj = Files(self.resolution, check_dir_exist, self.output_directory)
                 status = temp_obj.genoutputfiles()
-                print("look in zip folder status {}".format(status))
+                logger.info("look in zip folder status {}".format(status))
             else:
                 self.convert2image(file)
 
@@ -101,6 +101,7 @@ class Files:
         try:
             file_name, extension = splitext(file)
             extension = extension.lower()
+            quality = 100 if self.resolution>100 else 10
 
             if 'pdf' in extension:
                 self.pdf2png(self.input_directory, file_name)
@@ -112,7 +113,7 @@ class Files:
             elif 'jpg' in extension or 'jpeg' in extension:
                 if self.resolution>100:
                     img1 = cv2.imread(join(self.input_directory, file))
-                    cv2.imwrite(join(self.output_directory, file_name) + ".png" ,img1, [cv2.IMWRITE_JPEG_QUALITY, (self.resolution if self.resolution>100 else 20)])
+                    cv2.imwrite(join(self.output_directory, file_name) + ".png" ,img1, [cv2.IMWRITE_JPEG_QUALITY, (self.resolution if self.resolution>100 else 10)])
                 else:
                     shutil.copy(join(self.input_directory, file), self.output_directory)
             elif 'png' in extension:
@@ -141,7 +142,7 @@ class Files:
                 shutil.rmtree(temp_path)
                 os.rmdir(temp_path)
         except FileNotFoundError:
-            logger.info("Wrong file or file path")
+            logger.exception("Wrong file or file path")
 
         return True
 
@@ -164,17 +165,17 @@ class Files:
 
                 if isfile(outputfile):
                     if get_env() == 'Production':
-                        page = convert_from_path(outputfile, dpi=500)
+                        page = convert_from_path(outputfile, dpi=self.resolution)
                     else:
                         """specified poppler path required for windows"""
-                        page = convert_from_path(outputfile, dpi=500,
+                        page = convert_from_path(outputfile, dpi=self.resolution,
                                           poppler_path=r"C:\Users\kaiboey2\Downloads\Release-21.10.0-0\poppler-21.10.0\Library\bin")
 
                     page[0].save(join(self.output_directory, pdf_name) + "_{}.png".format(pgnum), 'PNG')
                     os.remove(outputfile)
 
                 time_end1 = time.time()
-                print("pdf2png convert pdf to image page {} time =".format(pgnum, time_end1 - time_start1))
+                logger.info("pdf2png convert pdf to image page {} time = {}".format(pgnum, time_end1 - time_start1))
         except IndexError as e:
             logger.exception(e)
             return False

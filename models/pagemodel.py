@@ -21,7 +21,7 @@ class Pages(db.Model):
 
     @classmethod
     def get_pages_by_subid(cls, sub_id):
-        return cls.query.filter_by(submission_id_FK=sub_id).all()
+        return cls.query.filter_by(submission_id_FK=sub_id).order_by(Pages.page_name.asc()).all()
 
     @classmethod
     def get_pages_by_pid(cls, pid):

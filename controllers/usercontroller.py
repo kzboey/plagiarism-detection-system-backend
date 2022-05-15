@@ -14,7 +14,8 @@ user_list_schema = UserSchema(many=True)
 ##register a new user
 class UserListResource(Resource):
 
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def get(self):
 
         users = Users.get_users()
@@ -27,7 +28,8 @@ class UserListResource(Resource):
 
         return success_wrapper(HTTPStatus.OK, "success", resp_data)
 
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def post(self):
         json_data = request.get_json()
 
@@ -56,7 +58,7 @@ class UserListResource(Resource):
 
 class UserResource(Resource):
 
-    @jwt_required(optional=True)
+    @jwt_required()
     def get(self):
         current_user = get_jwt_identity()
 
@@ -69,12 +71,12 @@ class UserResource(Resource):
         if current_user == user.eid:
             data = user_schema.dump(user)
 
-        return data, HTTPStatus.OK
+        return success_wrapper(HTTPStatus.OK, "success", data)
 
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def patch(self):
         """update existing user account"""
-        current_user = get_jwt_identity()
 
         json_data = request.get_json()
 
@@ -84,13 +86,11 @@ class UserResource(Resource):
             logger.exception('{} : Validation errors'.format(HTTPStatus.BAD_REQUEST))
             return error_wrapper(HTTPStatus.BAD_REQUEST, 'Validation errors: {}'.format(e))
 
-        edit_eid = request.args.get('eid')
-
         user = Users.get_by_eid(eid=data['eid'])
 
         if user is None:
             logger.info('{} : User to be changed not found'.format(HTTPStatus.NOT_FOUND))
-            return {'message': 'User to be changed not found'}, HTTPStatus.NOT_FOUND
+            return error_wrapper(HTTPStatus.NOT_FOUND, {'message': 'User to be changed not found'})
 
         user.last_name = data.get('last_name') or user.last_name
         user.first_name = data.get('first_name') or user.first_name
@@ -105,7 +105,8 @@ class UserResource(Resource):
         resp_data = user_schema.dump(user)
         return success_wrapper(HTTPStatus.OK, "success", resp_data)
 
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def delete(self):
         """delete user with following eid"""
         del_eid = request.args.get('eid')
@@ -114,7 +115,7 @@ class UserResource(Resource):
 
         if user is None:
             logger.info('{} : User to be deleted not found'.format(HTTPStatus.NOT_FOUND))
-            return {'message': 'User to be deleted not found'}, HTTPStatus.NOT_FOUND
+            return error_wrapper(HTTPStatus.NOT_FOUND, {'message': 'User to be deleted not found'})
 
         user.delete()
 
@@ -122,6 +123,7 @@ class UserResource(Resource):
 
 class MeResource(Resource):
 
+    # @jwt_required()
     @jwt_required()
     def get(self):
         user = Users.get_by_eid(eid=get_jwt_identity())

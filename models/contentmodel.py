@@ -1,5 +1,8 @@
 from extensions import db
 from models.sourcemodel import Sources
+from models.pagemodel import Pages
+from models.submissionmodel import Submissions
+from sqlalchemy import or_, and_
 
 class Contents(db.Model):
     __tablename__ = 'CONTENTS'
@@ -17,18 +20,30 @@ class Contents(db.Model):
     sources = db.relationship('Sources', backref='document', cascade="all, delete", passive_deletes=True)
 
     @classmethod
-    def get_content_by_pid(cls, pids):
-        # lists = db.session.query(Contents).all()
+    def get_content_by_pid(cls, pids, eqnValue, sentenceValue):
         lists = [db.session.query(Contents.content_id, Contents.content_type, Contents.content_value, Contents.position_x1, Contents.position_x2, Contents.position_y1, Contents.position_y2, Contents.confidence, Contents.page_id_FK, Sources.sources_id, Sources.similarity, Sources.origin)\
-            .filter(Contents.content_id==Sources.content_id_FK)\
-            .filter(Contents.page_id_FK==pid).all() for pid in pids]
+            .filter(Contents.content_id==Sources.content_id_FK, Contents.page_id_FK==pid) \
+            .filter(or_(and_(Contents.content_type == "equation", Sources.similarity >= eqnValue), and_(Contents.content_type == "sentence", Sources.similarity >= sentenceValue)))
+            .order_by(Contents.position_y1.asc()).all() for pid in pids]
         return lists
 
     @classmethod
-    def get_content_by_pid2(cls, pid):
-        lists = db.session.query(Contents.content_id, Contents.content_type, Contents.content_value, Contents.position_x1, Contents.position_x2, Contents.position_y1, Contents.position_y2, Contents.confidence)\
-            .filter(Contents.page_id_FK==pid, Contents.content_id==Sources.content_id_FK).all()
+    def get_content_by_cids(cls, cids):
+        lists = [db.session.query(Contents.content_id, Contents.content_type, Contents.content_value, Contents.position_x1,
+                Contents.position_x2, Contents.position_y1, Contents.position_y2, Contents.confidence,
+                Contents.page_id_FK, Pages.page_name).filter(Contents.content_id == cid, Contents.page_id_FK == Pages.page_id).all() for cid in cids]
         return lists
+
+    @classmethod
+    def get_content_by_task_and_name(cls, task_id, name):
+        return db.session.query(Contents).filter(Contents.page_id_FK.in_(db.session.query(Pages.page_id).filter(Pages.submission_id_FK.in_(db.session.query(Submissions.submission_id).filter(Submissions.author_name == name, Submissions.task_id_FK == task_id))))).count()
+
+    @classmethod
+    def get_matched_content(cls, task_id, name):
+        return db.session.query(Contents).filter(Contents.page_id_FK.in_(db.session.query(Pages.page_id).filter(
+            Pages.submission_id_FK.in_(
+                db.session.query(Submissions.submission_id).filter(Submissions.author_name == name,
+                                                                   Submissions.task_id_FK == task_id)))), Contents.content_id == Sources.content_id_FK, Contents.confidence > 0.6).count()
 
     def save(self):
         db.session.add(self)

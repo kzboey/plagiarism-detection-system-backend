@@ -1,5 +1,4 @@
-from flask import Blueprint
-from flask import request,send_file
+from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from http import HTTPStatus
@@ -17,15 +16,15 @@ page_schema = PageSchema()
 
 
 class ContentListResource(Resource):
-
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def post(self):
-        """get data: page_ids"""
+        """get data: content ids"""
         json_data = request.get_json()
 
         data = json_data["data"]
 
-        page_content_list = Contents.get_content_by_pid(data)
+        page_content_list = Contents.get_content_by_cids(data)
 
         lists = []
 
@@ -37,8 +36,33 @@ class ContentListResource(Resource):
         return success_wrapper(HTTPStatus.OK, "success", resp_data)
 
 
+class ContentListByPidResource(Resource):
+
+    # @jwt_required(optional=True)
+    @jwt_required()
+    def post(self):
+        """get data: page_ids"""
+        json_data = request.get_json()
+
+        data = json_data["data"]
+        eqnValue = json_data["eqnValue"]/ 100
+        sentenceValue = json_data["sentenceValue"]/100
+
+        page_content_list = Contents.get_content_by_pid(data, eqnValue, sentenceValue)
+
+        lists = []
+
+        for contents in page_content_list:
+            for page in contents:
+                # origin_content_id = page.origin
+                lists.append(page)
+
+        resp_data = content_list_schema.dump(lists)
+        return success_wrapper(HTTPStatus.OK, "success", resp_data)
+
+
 class AddContentListResource(Resource):
-    """testing"""
+    """Only for testing"""
     def post(self):
         """testing"""
         json_data = request.get_json()

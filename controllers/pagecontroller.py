@@ -23,7 +23,8 @@ document_schema = DocumentSchema()
 
 class PageResource(Resource):
 
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def get(self, pid):
         """unused"""
         page = Pages.get_pages_by_pid(pid)
@@ -37,6 +38,7 @@ class PageResource(Resource):
 
 class PageListResource(Resource):
 
+    @jwt_required()
     def post(self):
         json_data = request.get_json()
 

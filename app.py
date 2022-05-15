@@ -11,9 +11,10 @@ from controllers.usercontroller import UserListResource, UserResource, MeResourc
 from controllers.taskcontroller import TaskListResource, TaskResource
 from controllers.submissioncontroller import UploadResource, SubmissionListResource, SubmissionResource
 from controllers.pagecontroller import PageListResource, PageResource, PageListHighResource
-from controllers.contentcontroller import ContentListResource, AddContentListResource
+from controllers.contentcontroller import ContentListResource,ContentListByPidResource, AddContentListResource
 from controllers.sourcecontroller import SourceListResource
 from environ import get_env
+from utils.multiprocessor import run
 
 def create_app(test_config=None):
     """
@@ -35,6 +36,8 @@ def create_app(test_config=None):
 
     register_extensions(app)
     register_resources(app)
+    print("running app")
+    # run()
 
     return app
 
@@ -68,13 +71,13 @@ def register_resources(app):
     """get/add/update submissions of task"""
     api.add_resource(UploadResource, '/vtl/upload/<string:task_id>')
     api.add_resource(SubmissionListResource, '/vtl/submissions/<string:task_id>')
-    api.add_resource(SubmissionResource, '/vtl/submission/<string:author>')
+    api.add_resource(SubmissionResource, '/vtl/submission/<string:task_id>')
 
     # api.add_resource(DocumentListResource, '/vtl/documents')
     api.add_resource(PageResource, '/vtl/pages/<string:pid>')
     api.add_resource(PageListResource, '/vtl/pages')
-    # api.add_resource(ContentListResource, '/vtl/getImagecontents')
     api.add_resource(ContentListResource, '/vtl/getContents')
+    api.add_resource(ContentListByPidResource, '/vtl/getContentsPids')
     api.add_resource(AddContentListResource, '/vtl/newcontent')
     api.add_resource(SourceListResource, '/vtl/sources')
 

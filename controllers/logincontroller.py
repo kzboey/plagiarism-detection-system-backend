@@ -58,7 +58,7 @@ class RefreshResource(Resource):
 
 class RevokeResource(Resource):
 
-    @jwt_required
+    @jwt_required()
     def post(self):
         jti = get_jwt()['jti']
 

@@ -16,7 +16,7 @@ class Tasks(db.Model):
 
     @classmethod
     def get_user_tasks(cls,eid):
-        return cls.query.filter_by(eid_fk=eid).all()
+        return cls.query.filter_by(eid_fk=eid).order_by(Tasks.modified_date.desc()).all()
 
     @classmethod
     def get_task_by_id(cls, task_id):

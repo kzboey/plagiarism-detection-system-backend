@@ -15,7 +15,8 @@ from docx2pdf import convert
 from utils.fileutils import docx2pdf2
 from sshtunnel import SSHTunnelForwarder
 import mysql.connector
-from subprocess import Popen
+from utils.fileutils import Files, upload_file, get_author, make_directory
+from utils import multiprocessor
 
 def encodebase64(file):
 
@@ -62,16 +63,14 @@ def docx2pdf(directory,docx_name,extension):
 
 
 def main():
-    fpath = "C:/temp/documents/433910_CS665_testos/panriwei/"
-    fname = 'panriwei_89420_8905023_PANRIWEI_55243049_1'
-    fpath_2 = "/home/csadmin/visal/documents/437971_CS2222_test/panriwei/"
-    fname_2 = 'panriwei_89420_8905023_PANRIWEI_55243049_1'
-    LIBRE_OFFICE = '/etc/libreoffice/soffice'
-    # docx2pdf2(fpath,fname,'.docx')
-    # subprocess.call(['soffice', '--convert-to', 'pdf', '--outdir', fpath, '/home/csadmin/visal'])
-    # p = Popen([LIBRE_OFFICE, '--headless', '--convert-to', 'pdf', '--outdir',
-    #            '/home/csadmin/visal', '/home/csadmin/visal/documents/437971_CS2222_test/panriwei/panriwei_89420_8905023_PANRIWEI_55243049_1.docx'])
-    # p.communicate()
+    multiprocessor.run()
+    fpath = "C:/Users/kaiboey2/Downloads/CS5487-2022B-midterm/"
+    fname = 'chenzizhuo_166910_8904768_zizhuochen_1'
+
+    fileobj = Files(100, fpath, fname)
+    upload = multiprocessor.BackgroundUpload(fname)
+    upload.add_tasks(fileobj)
+
 
 if __name__ == "__main__":
     main()

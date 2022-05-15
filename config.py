@@ -45,8 +45,6 @@ class DevelopmentConfig(Config):
     UPLOAD_FOLDER = 'C:/temp/documents'
     IMAGE_FOLDER = 'C:/temp/pages'
     ZIP_FOLDER = 'C:/visal/plagiarism-detection-system/backend/zip/'
-    # IMAGE_FOLDER_HIGH = 'C:/temp/pages/500'
-    # IMAGE_FOLDER_LOW = 'C:/temp/pages/200'
     MAX_CONTENT_LENGTH = 32 * 1024 * 1024
 
 
@@ -64,8 +62,6 @@ class ProductionConfig(Config):
     UPLOAD_FOLDER = '/home/csadmin/visal/documents'
     IMAGE_FOLDER = '/home/csadmin/visal/pages'
     ZIP_FOLDER = '/home/csadmin/visal/zip/'
-    # IMAGE_FOLDER_HIGH = '/home/csadmin/visal/pages/500'
-    # IMAGE_FOLDER_LOW = '/home/csadmin/visal/pages/200'
     MAX_CONTENT_LENGTH = 32 * 1024 * 1024
 
 

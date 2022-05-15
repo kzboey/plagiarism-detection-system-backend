@@ -16,7 +16,8 @@ task_list_schema = TaskSchema(many=True)
 
 class TaskListResource(Resource):
     """get all task belonging to user or add new task"""
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def get(self):
         """get all tasks belong to user"""
         current_user = get_jwt_identity()
@@ -27,7 +28,8 @@ class TaskListResource(Resource):
         return success_wrapper(HTTPStatus.OK, "success", resp_data)
 
 
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def post(self):
         """create new user tasks"""
         json_data = request.get_json()
@@ -51,7 +53,8 @@ class TaskListResource(Resource):
 class TaskResource(Resource):
     """get/update/delete task belonging to user"""
 
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def get(self, task_id):
 
         task = Tasks.get_task_by_id(task_id)
@@ -62,7 +65,8 @@ class TaskResource(Resource):
             resp_data = task_schema.dump(task)
             return success_wrapper(HTTPStatus.OK, "success", resp_data)
 
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def patch(self, task_id):
         # update task
         json_data = request.get_json()
@@ -88,7 +92,8 @@ class TaskResource(Resource):
         resp_data = task_schema.dump(task)
         return success_wrapper(HTTPStatus.OK, "success", resp_data)
 
-    @jwt_required(optional=True)
+    # @jwt_required(optional=True)
+    @jwt_required()
     def delete(self, task_id):
         # delete task
         task = Tasks.get_task_by_id(task_id)

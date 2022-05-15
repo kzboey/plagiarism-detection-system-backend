@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, post_dump, validate, validates, ValidationError
+from marshmallow import Schema, fields, post_dump
 
 
 class ContentSchema(Schema):
@@ -14,6 +14,7 @@ class ContentSchema(Schema):
     position_y2 = fields.Float()
     confidence = fields.Float()
     page_id_FK = fields.String()
+    page_name = fields.String(dump_only=True)
     sources_id = fields.String(dump_only=True)
     origin = fields.String(dump_only=True)
     similarity = fields.Float(dump_only=True)
