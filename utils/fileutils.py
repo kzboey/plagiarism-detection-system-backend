@@ -11,8 +11,10 @@ from werkzeug.utils import secure_filename
 import cv2
 import time
 from environ import get_env
-import threading
+from utils.imageutils import resize_images, resize_images_low
 from utils.logger import logger
+from common.wrapper import error_wrapper
+from http import HTTPStatus
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 Image.MAX_IMAGE_PIXELS = None
@@ -105,23 +107,26 @@ class Files:
 
             if 'pdf' in extension:
                 self.pdf2png(self.input_directory, file_name)
-            elif 'docx' in extension or 'doc' in extension:
-                # docx2pdf2(self.input_directory,file_name,extension)
-                self.docx2image(self.input_directory, file_name, extension)
+            # elif 'docx' in extension or 'doc' in extension:
+            #     # docx2pdf2(self.input_directory,file_name,extension)
+            #     # self.docx2image(self.input_directory, file_name, extension)
+            #     raise ValueError("docx or doc file type not accepted!")
             elif 'zip' in extension:
                 self.zip2png(file, file_name)
-            elif 'jpg' in extension or 'jpeg' in extension:
+            elif 'jpg' in extension or 'jpeg' in extension or 'png' in extension:
                 if self.resolution>100:
                     img1 = cv2.imread(join(self.input_directory, file))
-                    cv2.imwrite(join(self.output_directory, file_name) + ".png" ,img1, [cv2.IMWRITE_JPEG_QUALITY, (self.resolution if self.resolution>100 else 10)])
+                    img1 = resize_images(img1)
+                    cv2.imwrite(join(self.output_directory, file_name) + ".png" ,img1, [cv2.IMWRITE_JPEG_QUALITY, 100])
                 else:
-                    shutil.copy(join(self.input_directory, file), self.output_directory)
-            elif 'png' in extension:
-                file_path = join(self.input_directory, file)
-                shutil.copy(file_path, self.output_directory)
-        except IndexError as e:
+                    img1 = cv2.imread(join(self.input_directory, file))
+                    img1 = resize_images_low(img1)
+                    cv2.imwrite(join(self.output_directory, file_name) + ".png", img1, [cv2.IMWRITE_JPEG_QUALITY, 10])
+            else:
+                return False, "{} file type not accepted".format(extension)
+            return True, "Succeed"
+        except ValueError as e:
             logger.exception(e)
-            pass
 
     def zip2png(self, zipfile, zip_name):
 
@@ -164,11 +169,11 @@ class Files:
                     pdfwrite.write(out)
 
                 if isfile(outputfile):
-                    if get_env() == 'Production':
-                        page = convert_from_path(outputfile, dpi=self.resolution)
+                    if get_env() == 'Production' or get_env() == 'Uat':
+                        page = convert_from_path(outputfile, dpi=self.resolution, size=(3072, 4096) if self.resolution > 100 else (960, 1280))
                     else:
                         """specified poppler path required for windows"""
-                        page = convert_from_path(outputfile, dpi=self.resolution,
+                        page = convert_from_path(outputfile, dpi=self.resolution, size=(3072, 4096) if self.resolution > 100 else (960, 1280),
                                           poppler_path=r"C:\Users\kaiboey2\Downloads\Release-21.10.0-0\poppler-21.10.0\Library\bin")
 
                     page[0].save(join(self.output_directory, pdf_name) + "_{}.png".format(pgnum), 'PNG')

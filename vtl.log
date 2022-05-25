@@ -1,0 +1,488 @@
+2022-05-24 16:25:42,986 - WARNING -  * Debugger is active!
+2022-05-24 16:25:42,986 - INFO -  * Debugger PIN: 534-011-943
+2022-05-24 16:25:43,439 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2022-05-24 16:25:44,167 - INFO - 127.0.0.1 - - [24/May/2022 16:25:44] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:25:44,214 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 16:25:45,438 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 16:25:45,657 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/luchengyu'
+2022-05-24 16:25:45,703 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 16:25:45,703 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/luchengyu/high'
+2022-05-24 16:25:50,447 - INFO - 127.0.0.1 - - [24/May/2022 16:25:50] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:02,791 - INFO - 127.0.0.1 - - [24/May/2022 16:26:02] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:02,840 - INFO - guilin_LATE_166717_9288562_IMG_20220504_203437.jpg
+2022-05-24 16:26:02,840 - INFO - handling file guilin_LATE_166717_9288562_IMG_20220504_203437.jpg
+2022-05-24 16:26:02,855 - INFO - Directory C:/temp/documents/471122_CS2222_ML Final/guilin Created 
+2022-05-24 16:26:02,871 - INFO - File: guilin_LATE_166717_9288562_IMG_20220504_203437.jpg Uploaded 
+2022-05-24 16:26:02,871 - INFO - Directory C:/temp/pages/471122_CS2222_ML Final/guilin/high Created 
+2022-05-24 16:26:03,849 - INFO - Directory C:/temp/pages/471122_CS2222_ML Final/guilin/low Created 
+2022-05-24 16:26:04,036 - INFO - convert to image time =1.1651549339294434
+2022-05-24 16:26:04,286 - INFO - exist page: None
+2022-05-24 16:26:04,474 - INFO - 127.0.0.1 - - [24/May/2022 16:26:04] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:04,734 - INFO - 127.0.0.1 - - [24/May/2022 16:26:04] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:04,764 - INFO - 127.0.0.1 - - [24/May/2022 16:26:04] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:04,969 - INFO - guilin_LATE_166717_9288564_IMG_20220504_203430.jpg
+2022-05-24 16:26:04,969 - INFO - handling file guilin_LATE_166717_9288564_IMG_20220504_203430.jpg
+2022-05-24 16:26:04,973 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/guilin already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/guilin'
+2022-05-24 16:26:04,988 - INFO - File: guilin_LATE_166717_9288564_IMG_20220504_203430.jpg Uploaded 
+2022-05-24 16:26:04,989 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/guilin/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/guilin/high'
+2022-05-24 16:26:05,704 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/guilin/low already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/guilin/low'
+2022-05-24 16:26:05,891 - INFO - convert to image time =0.9035072326660156
+2022-05-24 16:26:05,954 - INFO - exist page: <Pages ebfef00dbf22435fbf9e>
+2022-05-24 16:26:05,969 - INFO - exist page: None
+2022-05-24 16:26:06,032 - INFO - 127.0.0.1 - - [24/May/2022 16:26:06] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:06,258 - INFO - guilin_LATE_166717_9288566_IMG_20220504_203424.jpg
+2022-05-24 16:26:06,258 - INFO - handling file guilin_LATE_166717_9288566_IMG_20220504_203424.jpg
+2022-05-24 16:26:06,258 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/guilin already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/guilin'
+2022-05-24 16:26:06,273 - INFO - File: guilin_LATE_166717_9288566_IMG_20220504_203424.jpg Uploaded 
+2022-05-24 16:26:06,289 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/guilin/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/guilin/high'
+2022-05-24 16:26:06,345 - INFO - 127.0.0.1 - - [24/May/2022 16:26:06] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:07,116 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/guilin/low already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/guilin/low'
+2022-05-24 16:26:07,303 - INFO - convert to image time =1.029895305633545
+2022-05-24 16:26:07,382 - INFO - exist page: <Pages ebfef00dbf22435fbf9e>
+2022-05-24 16:26:07,382 - INFO - exist page: <Pages 1e423f38cb1a4810bede>
+2022-05-24 16:26:07,397 - INFO - exist page: None
+2022-05-24 16:26:07,522 - INFO - 127.0.0.1 - - [24/May/2022 16:26:07] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:07,788 - INFO - 127.0.0.1 - - [24/May/2022 16:26:07] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:13,980 - INFO - 127.0.0.1 - - [24/May/2022 16:26:13] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:14,088 - INFO - boshoffdutliff_LATE_91453_9288716_exam.pdf
+2022-05-24 16:26:14,088 - INFO - handling file boshoffdutliff_LATE_91453_9288716_exam.pdf
+2022-05-24 16:26:14,092 - INFO - Directory C:/temp/documents/471122_CS2222_ML Final/boshoffdutliff Created 
+2022-05-24 16:26:14,141 - INFO - File: boshoffdutliff_LATE_91453_9288716_exam.pdf Uploaded 
+2022-05-24 16:26:14,143 - INFO - Directory C:/temp/pages/471122_CS2222_ML Final/boshoffdutliff/high Created 
+2022-05-24 16:26:16,876 - INFO - pdf2png convert pdf to image page 1 time = 2.7190113067626953
+2022-05-24 16:26:18,455 - INFO - pdf2png convert pdf to image page 2 time = 1.57942795753479
+2022-05-24 16:26:20,129 - INFO - pdf2png convert pdf to image page 3 time = 1.674422264099121
+2022-05-24 16:26:21,645 - INFO - pdf2png convert pdf to image page 4 time = 1.5152764320373535
+2022-05-24 16:26:22,973 - INFO - pdf2png convert pdf to image page 5 time = 1.3278565406799316
+2022-05-24 16:26:24,363 - INFO - pdf2png convert pdf to image page 6 time = 1.3746683597564697
+2022-05-24 16:26:25,816 - INFO - pdf2png convert pdf to image page 7 time = 1.4528160095214844
+2022-05-24 16:26:27,300 - INFO - pdf2png convert pdf to image page 8 time = 1.484048843383789
+2022-05-24 16:26:28,628 - INFO - pdf2png convert pdf to image page 9 time = 1.3278067111968994
+2022-05-24 16:26:29,799 - INFO - pdf2png convert pdf to image page 10 time = 1.1716301441192627
+2022-05-24 16:26:29,799 - INFO - Directory C:/temp/pages/471122_CS2222_ML Final/boshoffdutliff/low Created 
+2022-05-24 16:26:30,143 - INFO - pdf2png convert pdf to image page 1 time = 0.3280510902404785
+2022-05-24 16:26:30,502 - INFO - pdf2png convert pdf to image page 2 time = 0.35926318168640137
+2022-05-24 16:26:30,799 - INFO - pdf2png convert pdf to image page 3 time = 0.2968440055847168
+2022-05-24 16:26:31,252 - INFO - pdf2png convert pdf to image page 4 time = 0.4529855251312256
+2022-05-24 16:26:31,564 - INFO - pdf2png convert pdf to image page 5 time = 0.31242990493774414
+2022-05-24 16:26:31,892 - INFO - pdf2png convert pdf to image page 6 time = 0.3280527591705322
+2022-05-24 16:26:32,330 - INFO - pdf2png convert pdf to image page 7 time = 0.43743419647216797
+2022-05-24 16:26:32,767 - INFO - pdf2png convert pdf to image page 8 time = 0.43740010261535645
+2022-05-24 16:26:33,095 - INFO - pdf2png convert pdf to image page 9 time = 0.3280520439147949
+2022-05-24 16:26:33,564 - INFO - pdf2png convert pdf to image page 10 time = 0.45305657386779785
+2022-05-24 16:26:33,564 - INFO - convert to image time =19.422909021377563
+2022-05-24 16:26:33,720 - INFO - exist page: None
+2022-05-24 16:26:33,783 - INFO - exist page: None
+2022-05-24 16:26:33,876 - INFO - exist page: None
+2022-05-24 16:26:33,970 - INFO - exist page: None
+2022-05-24 16:26:34,111 - INFO - exist page: None
+2022-05-24 16:26:34,580 - INFO - exist page: None
+2022-05-24 16:26:34,720 - INFO - exist page: None
+2022-05-24 16:26:34,798 - INFO - exist page: None
+2022-05-24 16:26:34,845 - INFO - exist page: None
+2022-05-24 16:26:34,923 - INFO - exist page: None
+2022-05-24 16:26:35,064 - INFO - 127.0.0.1 - - [24/May/2022 16:26:35] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:35,319 - INFO - 127.0.0.1 - - [24/May/2022 16:26:35] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:35,351 - INFO - 127.0.0.1 - - [24/May/2022 16:26:35] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:43,655 - INFO - 127.0.0.1 - - [24/May/2022 16:26:43] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:26:43,693 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 16:26:43,693 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 16:26:43,697 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/luchengyu'
+2022-05-24 16:26:43,723 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 16:26:43,724 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/luchengyu/high'
+2022-05-24 16:26:43,740 - INFO - 127.0.0.1 - - [24/May/2022 16:26:43] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:27:00,244 - INFO - 127.0.0.1 - - [24/May/2022 16:27:00] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:27:00,292 - INFO - 127.0.0.1 - - [24/May/2022 16:27:00] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:36:30,951 - INFO - 127.0.0.1 - - [24/May/2022 16:36:30] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:36:30,975 - INFO - 127.0.0.1 - - [24/May/2022 16:36:30] "[31m[1mPOST /vtl/upload/471122 HTTP/1.1[0m" 401 -
+2022-05-24 16:40:23,375 - INFO - 127.0.0.1 - - [24/May/2022 16:40:23] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:40:23,602 - INFO - 127.0.0.1 - - [24/May/2022 16:40:23] "[31m[1mGET /vtl/submissions/471122 HTTP/1.1[0m" 401 -
+2022-05-24 16:40:23,895 - INFO - 127.0.0.1 - - [24/May/2022 16:40:23] "OPTIONS /vtl/refresh HTTP/1.1" 200 -
+2022-05-24 16:40:24,127 - INFO - 200 : login refreshed
+2022-05-24 16:40:24,129 - INFO - 127.0.0.1 - - [24/May/2022 16:40:24] "POST /vtl/refresh HTTP/1.1" 200 -
+2022-05-24 16:40:28,065 - INFO - 127.0.0.1 - - [24/May/2022 16:40:28] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:40:35,857 - INFO - 127.0.0.1 - - [24/May/2022 16:40:35] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:40:36,080 - INFO - zhanglei_LATE_160861_9288844_exam-ML.docx
+2022-05-24 16:40:36,080 - INFO - handling file zhanglei_LATE_160861_9288844_exam-ML.docx
+2022-05-24 16:40:36,106 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/zhanglei already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/zhanglei'
+2022-05-24 16:40:36,258 - INFO - File: zhanglei_LATE_160861_9288844_exam-ML.docx Uploaded 
+2022-05-24 16:40:36,259 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/zhanglei/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/zhanglei/high'
+2022-05-24 16:40:36,328 - INFO - 127.0.0.1 - - [24/May/2022 16:40:36] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 16:41:25,663 - INFO - 127.0.0.1 - - [24/May/2022 16:41:25] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 16:41:25,893 - INFO - 127.0.0.1 - - [24/May/2022 16:41:25] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 21:06:39,401 - INFO - 127.0.0.1 - - [24/May/2022 21:06:39] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 21:06:39,417 - INFO - 127.0.0.1 - - [24/May/2022 21:06:39] "[31m[1mGET /vtl/tasks HTTP/1.1[0m" 401 -
+2022-05-24 21:06:39,592 - INFO - 127.0.0.1 - - [24/May/2022 21:06:39] "OPTIONS /vtl/refresh HTTP/1.1" 200 -
+2022-05-24 21:06:39,603 - INFO - 200 : login refreshed
+2022-05-24 21:06:39,606 - INFO - 127.0.0.1 - - [24/May/2022 21:06:39] "POST /vtl/refresh HTTP/1.1" 200 -
+2022-05-24 21:06:42,347 - INFO - 127.0.0.1 - - [24/May/2022 21:06:42] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 21:06:42,740 - INFO - 127.0.0.1 - - [24/May/2022 21:06:42] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:20:03,353 - INFO - 127.0.0.1 - - [24/May/2022 22:20:03] "OPTIONS /vtl/token HTTP/1.1" 200 -
+2022-05-24 22:20:03,362 - INFO - get login api
+2022-05-24 22:20:03,467 - WARNING - 401 : login fail
+2022-05-24 22:20:03,470 - INFO - 127.0.0.1 - - [24/May/2022 22:20:03] "POST /vtl/token HTTP/1.1" 200 -
+2022-05-24 22:20:08,086 - INFO - get login api
+2022-05-24 22:20:08,109 - INFO - 200 : login success
+2022-05-24 22:20:08,111 - INFO - 127.0.0.1 - - [24/May/2022 22:20:08] "POST /vtl/token HTTP/1.1" 200 -
+2022-05-24 22:20:08,150 - INFO - 127.0.0.1 - - [24/May/2022 22:20:08] "OPTIONS /vtl/user HTTP/1.1" 200 -
+2022-05-24 22:20:08,201 - INFO - 127.0.0.1 - - [24/May/2022 22:20:08] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:20:08,238 - INFO - 127.0.0.1 - - [24/May/2022 22:20:08] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:20:08,307 - INFO - 127.0.0.1 - - [24/May/2022 22:20:08] "GET /vtl/user HTTP/1.1" 200 -
+2022-05-24 22:20:08,404 - INFO - 127.0.0.1 - - [24/May/2022 22:20:08] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:20:09,928 - INFO - 127.0.0.1 - - [24/May/2022 22:20:09] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:20:10,091 - INFO - 127.0.0.1 - - [24/May/2022 22:20:10] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:20:32,893 - INFO - 127.0.0.1 - - [24/May/2022 22:20:32] "OPTIONS /vtl/pages HTTP/1.1" 200 -
+2022-05-24 22:20:32,897 - INFO - 127.0.0.1 - - [24/May/2022 22:20:32] "OPTIONS /vtl/getContentsPids HTTP/1.1" 200 -
+2022-05-24 22:20:33,115 - INFO - 127.0.0.1 - - [24/May/2022 22:20:33] "POST /vtl/getContentsPids HTTP/1.1" 200 -
+2022-05-24 22:20:33,414 - INFO - get page time =0.24930334091186523
+2022-05-24 22:20:33,444 - INFO - 127.0.0.1 - - [24/May/2022 22:20:33] "POST /vtl/pages HTTP/1.1" 200 -
+2022-05-24 22:20:34,646 - INFO - 127.0.0.1 - - [24/May/2022 22:20:34] "OPTIONS /vtl/getContents HTTP/1.1" 200 -
+2022-05-24 22:20:34,798 - INFO - 127.0.0.1 - - [24/May/2022 22:20:34] "POST /vtl/getContents HTTP/1.1" 200 -
+2022-05-24 22:20:38,929 - INFO - 127.0.0.1 - - [24/May/2022 22:20:38] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:20:38,962 - INFO - 127.0.0.1 - - [24/May/2022 22:20:38] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:16,223 - INFO - 127.0.0.1 - - [24/May/2022 22:23:16] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:16,265 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:23:16,266 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:23:16,270 - INFO - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu Created 
+2022-05-24 22:23:16,297 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 22:23:16,299 - INFO - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high Created 
+2022-05-24 22:23:16,316 - INFO - 127.0.0.1 - - [24/May/2022 22:23:16] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:22,319 - INFO - 127.0.0.1 - - [24/May/2022 22:23:22] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:23:22,336 - INFO - 127.0.0.1 - - [24/May/2022 22:23:22] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:23:22,415 - INFO - 127.0.0.1 - - [24/May/2022 22:23:22] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:23:23,440 - INFO - 127.0.0.1 - - [24/May/2022 22:23:23] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:23,472 - INFO - 127.0.0.1 - - [24/May/2022 22:23:23] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:30,436 - INFO - 127.0.0.1 - - [24/May/2022 22:23:30] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:30,476 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:23:30,476 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:23:30,479 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/luchengyu'
+2022-05-24 22:23:30,505 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 22:23:30,505 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/luchengyu/high'
+2022-05-24 22:23:30,519 - INFO - 127.0.0.1 - - [24/May/2022 22:23:30] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:49,795 - INFO - 127.0.0.1 - - [24/May/2022 22:23:49] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:23:49,809 - INFO - 127.0.0.1 - - [24/May/2022 22:23:49] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:23:49,868 - INFO - 127.0.0.1 - - [24/May/2022 22:23:49] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:23:50,686 - INFO - 127.0.0.1 - - [24/May/2022 22:23:50] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:50,722 - INFO - 127.0.0.1 - - [24/May/2022 22:23:50] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:59,223 - INFO - 127.0.0.1 - - [24/May/2022 22:23:59] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:23:59,273 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:23:59,273 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:23:59,277 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/luchengyu'
+2022-05-24 22:23:59,306 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 22:23:59,307 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/luchengyu/high'
+2022-05-24 22:23:59,325 - INFO - 127.0.0.1 - - [24/May/2022 22:23:59] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:26:41,580 - INFO - 127.0.0.1 - - [24/May/2022 22:26:41] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:26:41,596 - INFO - 127.0.0.1 - - [24/May/2022 22:26:41] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:26:41,796 - INFO - 127.0.0.1 - - [24/May/2022 22:26:41] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:26:42,878 - INFO - 127.0.0.1 - - [24/May/2022 22:26:42] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:26:42,915 - INFO - 127.0.0.1 - - [24/May/2022 22:26:42] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:26:53,450 - INFO - 127.0.0.1 - - [24/May/2022 22:26:53] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:26:53,490 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:26:53,490 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:26:53,494 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/luchengyu'
+2022-05-24 22:26:53,526 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 22:26:53,527 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/luchengyu/high'
+2022-05-24 22:26:53,549 - INFO - 127.0.0.1 - - [24/May/2022 22:26:53] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:27:54,087 - INFO - 127.0.0.1 - - [24/May/2022 22:27:54] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:27:54,326 - INFO - 127.0.0.1 - - [24/May/2022 22:27:54] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:27:54,527 - INFO - 127.0.0.1 - - [24/May/2022 22:27:54] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:27:55,172 - INFO - 127.0.0.1 - - [24/May/2022 22:27:55] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:27:55,207 - INFO - 127.0.0.1 - - [24/May/2022 22:27:55] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:28:02,139 - INFO - 127.0.0.1 - - [24/May/2022 22:28:02] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:28:02,191 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:28:02,191 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:28:02,194 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/luchengyu'
+2022-05-24 22:28:02,232 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 22:28:02,233 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/luchengyu/high'
+2022-05-24 22:28:02,248 - INFO - 127.0.0.1 - - [24/May/2022 22:28:02] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:06,878 - INFO - 127.0.0.1 - - [24/May/2022 22:29:06] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:06,921 - INFO - 127.0.0.1 - - [24/May/2022 22:29:06] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:18,751 - INFO - 127.0.0.1 - - [24/May/2022 22:29:18] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:18,794 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:29:18,794 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:29:18,797 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/luchengyu'
+2022-05-24 22:29:18,821 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 22:29:18,821 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/luchengyu/high'
+2022-05-24 22:29:18,836 - INFO - 127.0.0.1 - - [24/May/2022 22:29:18] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:32,606 - INFO - 127.0.0.1 - - [24/May/2022 22:29:32] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:32,669 - INFO - lamkingyiu_LATE_161114_9288914_exam6.jpg
+2022-05-24 22:29:32,669 - INFO - handling file lamkingyiu_LATE_161114_9288914_exam6.jpg
+2022-05-24 22:29:32,673 - INFO - Directory C:/temp/documents/471122_CS2222_ML Final/lamkingyiu Created 
+2022-05-24 22:29:32,676 - INFO - File: lamkingyiu_LATE_161114_9288914_exam6.jpg Uploaded 
+2022-05-24 22:29:32,678 - INFO - Directory C:/temp/pages/471122_CS2222_ML Final/lamkingyiu/high Created 
+2022-05-24 22:29:33,213 - INFO - Directory C:/temp/pages/471122_CS2222_ML Final/lamkingyiu/low Created 
+2022-05-24 22:29:33,318 - INFO - convert to image time =0.6424520015716553
+2022-05-24 22:29:33,546 - INFO - exist page: None
+2022-05-24 22:29:33,640 - INFO - 127.0.0.1 - - [24/May/2022 22:29:33] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:33,710 - INFO - 127.0.0.1 - - [24/May/2022 22:29:33] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:33,755 - INFO - 127.0.0.1 - - [24/May/2022 22:29:33] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:38,768 - INFO - 127.0.0.1 - - [24/May/2022 22:29:38] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:38,925 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:29:38,925 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:29:38,929 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/luchengyu'
+2022-05-24 22:29:38,955 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 22:29:38,956 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/luchengyu/high'
+2022-05-24 22:29:38,979 - INFO - 127.0.0.1 - - [24/May/2022 22:29:38] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:45,568 - INFO - 127.0.0.1 - - [24/May/2022 22:29:45] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:45,589 - INFO - linwei_LATE_169536_9288997_p1-1.jpg
+2022-05-24 22:29:45,589 - INFO - handling file linwei_LATE_169536_9288997_p1-1.jpg
+2022-05-24 22:29:45,592 - INFO - Directory C:/temp/documents/471122_CS2222_ML Final/linwei Created 
+2022-05-24 22:29:45,596 - INFO - File: linwei_LATE_169536_9288997_p1-1.jpg Uploaded 
+2022-05-24 22:29:45,597 - INFO - Directory C:/temp/pages/471122_CS2222_ML Final/linwei/high Created 
+2022-05-24 22:29:46,146 - INFO - Directory C:/temp/pages/471122_CS2222_ML Final/linwei/low Created 
+2022-05-24 22:29:46,243 - INFO - convert to image time =0.6468572616577148
+2022-05-24 22:29:46,550 - INFO - exist page: None
+2022-05-24 22:29:46,744 - INFO - 127.0.0.1 - - [24/May/2022 22:29:46] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:46,928 - INFO - 127.0.0.1 - - [24/May/2022 22:29:46] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:47,207 - INFO - 127.0.0.1 - - [24/May/2022 22:29:47] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:49,467 - INFO - 127.0.0.1 - - [24/May/2022 22:29:49] "OPTIONS /vtl/submission/471122?author=lamkingyiu HTTP/1.1" 200 -
+2022-05-24 22:29:49,806 - INFO - 204 : success
+2022-05-24 22:29:49,807 - INFO - 127.0.0.1 - - [24/May/2022 22:29:49] "DELETE /vtl/submission/471122?author=lamkingyiu HTTP/1.1" 200 -
+2022-05-24 22:29:49,996 - INFO - 127.0.0.1 - - [24/May/2022 22:29:49] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:51,795 - INFO - 127.0.0.1 - - [24/May/2022 22:29:51] "OPTIONS /vtl/submission/471122?author=linwei HTTP/1.1" 200 -
+2022-05-24 22:29:52,358 - INFO - 204 : success
+2022-05-24 22:29:52,359 - INFO - 127.0.0.1 - - [24/May/2022 22:29:52] "DELETE /vtl/submission/471122?author=linwei HTTP/1.1" 200 -
+2022-05-24 22:29:52,398 - INFO - 127.0.0.1 - - [24/May/2022 22:29:52] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:29:52,503 - INFO - 127.0.0.1 - - [24/May/2022 22:29:52] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:30:00,652 - INFO - 127.0.0.1 - - [24/May/2022 22:30:00] "OPTIONS /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:30:00,695 - INFO - luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:30:00,696 - INFO - handling file luchengyu_LATE_169515_9288876_\u65b0\u5efa Microsoft Word \u6587\u6863.docx
+2022-05-24 22:30:00,699 - ERROR - Directory C:/temp/documents/471122_CS2222_ML Final/luchengyu already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/documents/471122_CS2222_ML Final/luchengyu'
+2022-05-24 22:30:00,726 - INFO - File: luchengyu_LATE_169515_9288876_MicrosoftWord.docx Uploaded 
+2022-05-24 22:30:00,728 - ERROR - Directory C:/temp/pages/471122_CS2222_ML Final/luchengyu/high already exists 
+Traceback (most recent call last):
+  File "C:\visal\plagiarism-detection-system\backend\utils\fileutils.py", line 57, in make_directory
+    os.makedirs(dirName)
+  File "C:\Users\kaiboey2\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:/temp/pages/471122_CS2222_ML Final/luchengyu/high'
+2022-05-24 22:30:00,743 - INFO - 127.0.0.1 - - [24/May/2022 22:30:00] "POST /vtl/upload/471122 HTTP/1.1" 200 -
+2022-05-24 22:31:23,431 - INFO - 127.0.0.1 - - [24/May/2022 22:31:23] "OPTIONS /vtl/pages HTTP/1.1" 200 -
+2022-05-24 22:31:23,433 - INFO - 127.0.0.1 - - [24/May/2022 22:31:23] "OPTIONS /vtl/getContentsPids HTTP/1.1" 200 -
+2022-05-24 22:31:23,517 - INFO - 127.0.0.1 - - [24/May/2022 22:31:23] "POST /vtl/getContentsPids HTTP/1.1" 200 -
+2022-05-24 22:31:23,546 - INFO - get page time =0.03886055946350098
+2022-05-24 22:31:23,584 - INFO - 127.0.0.1 - - [24/May/2022 22:31:23] "POST /vtl/pages HTTP/1.1" 200 -
+2022-05-24 22:31:23,778 - INFO - 127.0.0.1 - - [24/May/2022 22:31:23] "OPTIONS /vtl/getContents HTTP/1.1" 200 -
+2022-05-24 22:31:24,016 - INFO - 127.0.0.1 - - [24/May/2022 22:31:24] "POST /vtl/getContents HTTP/1.1" 200 -
+2022-05-24 22:31:24,915 - INFO - 127.0.0.1 - - [24/May/2022 22:31:24] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:31:24,946 - INFO - 127.0.0.1 - - [24/May/2022 22:31:24] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-24 22:31:27,640 - INFO - 127.0.0.1 - - [24/May/2022 22:31:27] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:31:27,684 - INFO - 127.0.0.1 - - [24/May/2022 22:31:27] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:31:27,858 - INFO - 127.0.0.1 - - [24/May/2022 22:31:27] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:31:31,189 - INFO - 127.0.0.1 - - [24/May/2022 22:31:31] "OPTIONS /vtl/submissions/598912 HTTP/1.1" 200 -
+2022-05-24 22:31:31,391 - INFO - 127.0.0.1 - - [24/May/2022 22:31:31] "GET /vtl/submissions/598912 HTTP/1.1" 200 -
+2022-05-24 22:31:34,738 - INFO - 127.0.0.1 - - [24/May/2022 22:31:34] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:31:34,861 - INFO - 127.0.0.1 - - [24/May/2022 22:31:34] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:31:35,153 - INFO - 127.0.0.1 - - [24/May/2022 22:31:35] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:31:35,703 - INFO - 127.0.0.1 - - [24/May/2022 22:31:35] "OPTIONS /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-24 22:31:35,760 - INFO - 127.0.0.1 - - [24/May/2022 22:31:35] "GET /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-24 22:35:06,700 - INFO - 127.0.0.1 - - [24/May/2022 22:35:06] "OPTIONS /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-24 22:35:06,753 - INFO - 127.0.0.1 - - [24/May/2022 22:35:06] "GET /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-24 22:35:32,711 - INFO - 127.0.0.1 - - [24/May/2022 22:35:32] "OPTIONS /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-24 22:35:32,723 - INFO - 127.0.0.1 - - [24/May/2022 22:35:32] "[31m[1mGET /vtl/submissions/873645 HTTP/1.1[0m" 401 -
+2022-05-24 22:35:32,991 - INFO - 127.0.0.1 - - [24/May/2022 22:35:32] "OPTIONS /vtl/refresh HTTP/1.1" 200 -
+2022-05-24 22:35:33,001 - INFO - 200 : login refreshed
+2022-05-24 22:35:33,002 - INFO - 127.0.0.1 - - [24/May/2022 22:35:33] "POST /vtl/refresh HTTP/1.1" 200 -
+2022-05-24 22:43:48,722 - INFO - 127.0.0.1 - - [24/May/2022 22:43:48] "OPTIONS /vtl/token HTTP/1.1" 200 -
+2022-05-24 22:43:48,728 - INFO - get login api
+2022-05-24 22:43:48,855 - INFO - 200 : login success
+2022-05-24 22:43:48,856 - INFO - 127.0.0.1 - - [24/May/2022 22:43:48] "POST /vtl/token HTTP/1.1" 200 -
+2022-05-24 22:43:48,868 - INFO - 127.0.0.1 - - [24/May/2022 22:43:48] "OPTIONS /vtl/user HTTP/1.1" 200 -
+2022-05-24 22:43:48,881 - INFO - 127.0.0.1 - - [24/May/2022 22:43:48] "GET /vtl/user HTTP/1.1" 200 -
+2022-05-24 22:43:48,931 - INFO - 127.0.0.1 - - [24/May/2022 22:43:48] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:43:48,945 - INFO - 127.0.0.1 - - [24/May/2022 22:43:48] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-24 22:43:48,991 - INFO - 127.0.0.1 - - [24/May/2022 22:43:48] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-25 10:00:27,083 - INFO - 127.0.0.1 - - [25/May/2022 10:00:27] "OPTIONS /vtl/token HTTP/1.1" 200 -
+2022-05-25 10:00:27,090 - INFO - get login api
+2022-05-25 10:00:27,330 - INFO - 200 : login success
+2022-05-25 10:00:27,332 - INFO - 127.0.0.1 - - [25/May/2022 10:00:27] "POST /vtl/token HTTP/1.1" 200 -
+2022-05-25 10:00:27,342 - INFO - 127.0.0.1 - - [25/May/2022 10:00:27] "OPTIONS /vtl/user HTTP/1.1" 200 -
+2022-05-25 10:00:27,415 - INFO - 127.0.0.1 - - [25/May/2022 10:00:27] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-25 10:00:27,416 - INFO - 127.0.0.1 - - [25/May/2022 10:00:27] "GET /vtl/user HTTP/1.1" 200 -
+2022-05-25 10:00:27,431 - INFO - 127.0.0.1 - - [25/May/2022 10:00:27] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-25 10:00:27,467 - INFO - 127.0.0.1 - - [25/May/2022 10:00:27] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-25 10:06:40,505 - INFO - 127.0.0.1 - - [25/May/2022 10:06:40] "OPTIONS /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-25 10:06:40,594 - INFO - 127.0.0.1 - - [25/May/2022 10:06:40] "GET /vtl/submissions/471122 HTTP/1.1" 200 -
+2022-05-25 10:06:43,085 - INFO - 127.0.0.1 - - [25/May/2022 10:06:43] "OPTIONS /vtl/tasks HTTP/1.1" 200 -
+2022-05-25 10:06:43,097 - INFO - 127.0.0.1 - - [25/May/2022 10:06:43] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-25 10:06:43,123 - INFO - 127.0.0.1 - - [25/May/2022 10:06:43] "GET /vtl/tasks HTTP/1.1" 200 -
+2022-05-25 10:06:44,219 - INFO - 127.0.0.1 - - [25/May/2022 10:06:44] "OPTIONS /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:06:44,282 - INFO - 127.0.0.1 - - [25/May/2022 10:06:44] "GET /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:15:08,524 - INFO - 127.0.0.1 - - [25/May/2022 10:15:08] "OPTIONS /vtl/pages HTTP/1.1" 200 -
+2022-05-25 10:15:08,530 - INFO - 127.0.0.1 - - [25/May/2022 10:15:08] "OPTIONS /vtl/getContentsPids HTTP/1.1" 200 -
+2022-05-25 10:15:09,068 - INFO - 127.0.0.1 - - [25/May/2022 10:15:09] "POST /vtl/getContentsPids HTTP/1.1" 200 -
+2022-05-25 10:15:09,080 - INFO - 127.0.0.1 - - [25/May/2022 10:15:09] "OPTIONS /vtl/getContents HTTP/1.1" 200 -
+2022-05-25 10:15:09,106 - INFO - 127.0.0.1 - - [25/May/2022 10:15:09] "POST /vtl/getContents HTTP/1.1" 200 -
+2022-05-25 10:15:09,246 - INFO - get page time =0.6760513782501221
+2022-05-25 10:15:09,376 - INFO - 127.0.0.1 - - [25/May/2022 10:15:09] "POST /vtl/pages HTTP/1.1" 200 -
+2022-05-25 10:15:11,827 - INFO - 127.0.0.1 - - [25/May/2022 10:15:11] "OPTIONS /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:15:11,920 - INFO - 127.0.0.1 - - [25/May/2022 10:15:11] "GET /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:15:38,159 - INFO - 127.0.0.1 - - [25/May/2022 10:15:38] "OPTIONS /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:15:38,167 - INFO - 127.0.0.1 - - [25/May/2022 10:15:38] "[31m[1mGET /vtl/submissions/873645 HTTP/1.1[0m" 401 -
+2022-05-25 10:15:38,190 - INFO - 127.0.0.1 - - [25/May/2022 10:15:38] "OPTIONS /vtl/refresh HTTP/1.1" 200 -
+2022-05-25 10:15:38,198 - INFO - 200 : login refreshed
+2022-05-25 10:15:38,199 - INFO - 127.0.0.1 - - [25/May/2022 10:15:38] "POST /vtl/refresh HTTP/1.1" 200 -
+2022-05-25 10:16:22,154 - INFO - 127.0.0.1 - - [25/May/2022 10:16:22] "OPTIONS /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:16:22,222 - INFO - 127.0.0.1 - - [25/May/2022 10:16:22] "GET /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:16:24,766 - INFO - 127.0.0.1 - - [25/May/2022 10:16:24] "GET /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:16:39,072 - INFO - 127.0.0.1 - - [25/May/2022 10:16:39] "OPTIONS /vtl/pages HTTP/1.1" 200 -
+2022-05-25 10:16:39,077 - INFO - 127.0.0.1 - - [25/May/2022 10:16:39] "OPTIONS /vtl/getContentsPids HTTP/1.1" 200 -
+2022-05-25 10:16:39,110 - INFO - 127.0.0.1 - - [25/May/2022 10:16:39] "POST /vtl/getContentsPids HTTP/1.1" 200 -
+2022-05-25 10:16:39,148 - INFO - 127.0.0.1 - - [25/May/2022 10:16:39] "OPTIONS /vtl/getContents HTTP/1.1" 200 -
+2022-05-25 10:16:39,195 - INFO - 127.0.0.1 - - [25/May/2022 10:16:39] "POST /vtl/getContents HTTP/1.1" 200 -
+2022-05-25 10:16:39,265 - INFO - get page time =0.1589350700378418
+2022-05-25 10:16:39,423 - INFO - 127.0.0.1 - - [25/May/2022 10:16:39] "POST /vtl/pages HTTP/1.1" 200 -
+2022-05-25 10:16:42,856 - INFO - 127.0.0.1 - - [25/May/2022 10:16:42] "OPTIONS /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:16:42,917 - INFO - 127.0.0.1 - - [25/May/2022 10:16:42] "GET /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:21:09,402 - INFO - 127.0.0.1 - - [25/May/2022 10:21:09] "OPTIONS /vtl/submissions/873645 HTTP/1.1" 200 -
+2022-05-25 10:21:09,469 - INFO - 127.0.0.1 - - [25/May/2022 10:21:09] "GET /vtl/submissions/873645 HTTP/1.1" 200 -

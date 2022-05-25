@@ -4,7 +4,7 @@ from PIL import Image
 from flask import jsonify
 import base64
 from utils.uuidgenerator import gen_uuid4
-import os
+import cv2
 
 
 def convert_base64(file):
@@ -37,3 +37,17 @@ def get_images(image_lists):
     for image_path in image_lists:
         encoded_imges.append(get_response_image(image_path))
     return jsonify(encoded_imges)
+
+def resize_images(image):
+    width = 3072
+    height = 4096   #3.2 times low res image
+    points = (width, height)
+    resized_image = cv2.resize(image, points)
+    return resized_image
+
+def resize_images_low(image):
+    width = 960
+    height = 1280
+    points = (width, height)
+    resized_image = cv2.resize(image, points)
+    return resized_image

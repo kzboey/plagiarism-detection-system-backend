@@ -22,7 +22,6 @@ from common.wrapper import success_wrapper, error_wrapper
 import time
 import re
 from utils.logger import logger
-from utils.multiprocessor import BackgroundUpload
 
 submission_schema = SubmissionSchema()
 submission_list_schema = SubmissionListSchema(many=True)
@@ -49,7 +48,7 @@ def add_files(upload_files,task_id):
     doc_author_directory_name = join(join(UPLOADED_DOCUMENT_PATH, tdirname), author)
     doc_author_directory = make_directory(doc_author_directory_name.replace("\\", "/"))
 
-    file.filename = re.sub("[?|$|!|,|@|#|&|*|(|)]|\s", "", file.filename)
+    file.filename = re.sub("[?|$|!|,|@|#|&|*|(|)|\u4e00-\u9fff]|\s", "", file.filename)
     upload_status = upload_file(file, doc_author_directory)
 
     if upload_status is False:
@@ -63,17 +62,22 @@ def add_files(upload_files,task_id):
     high_resolution_path_name = join(join(join(UPLOADED_IMAGES_PATH, tdirname), author), 'high')
     page_high_resolution_path = make_directory(high_resolution_path_name.replace("\\","/"))
     fileobj_high = Files(500, doc_author_directory, page_high_resolution_path)
-    # background_high = BackgroundUpload(file.filename)
-    # background_high.add_tasks(fileobj_high)
-    fileobj_high.convert2image(file.filename)
+
+    status, msg = fileobj_high.convert2image(file.filename)
+
+    if status is False:
+        return status, msg
 
     "low resolution image path"
     low_resolution_path_name = join(join(join(UPLOADED_IMAGES_PATH, tdirname), author), 'low')
     page_low_resolution_path = make_directory(low_resolution_path_name.replace("\\","/"))
     fileobj_low = Files(100, doc_author_directory, page_low_resolution_path)
-    # background_low = BackgroundUpload(file.filename)
-    # background_low.add_tasks(fileobj_low)
-    fileobj_low.convert2image(file.filename)
+
+    status, msg = fileobj_low.convert2image(file.filename)
+
+    if status is False:
+        return status, msg
+
     time_end1 = time.time()
     logger.info("convert to image time =" + str(time_end1 - time_start1))
     """***Uploading Page End***"""
@@ -109,7 +113,7 @@ def add_files(upload_files,task_id):
         pngfile = file_name + '.png'
         PNGfile = file_name + '.PNG'
         exist_page = Pages.get_pages_by_name(file, pngfile, sub_id) or Pages.get_pages_by_name(file, PNGfile, sub_id)
-        print("exist page: {}".format(exist_page))
+        logger.info("exist page: {}".format(exist_page))
         if exist_page is None:
             page = Pages()
             page.page_id = gen_uuid4()
@@ -120,7 +124,7 @@ def add_files(upload_files,task_id):
             page.submission_id_FK = sub_id
             page.save()
 
-    return submission_lists;
+    return True, submission_lists;
 
 
 class UploadResource(Resource):
@@ -140,7 +144,10 @@ class UploadResource(Resource):
         if uploaded_files is None:
             return {'message': 'file not found'}, HTTPStatus.NOT_FOUND
 
-        submissions = add_files(uploaded_files,task_id)
+        status, submissions = add_files(uploaded_files,task_id)
+
+        if status is False:
+            return error_wrapper(HTTPStatus.NOT_FOUND, submissions)
 
         resp_data = submission_list_schema.dump(submissions)
         return success_wrapper(HTTPStatus.OK, "{} uploaded success".format(uploaded_files.filename), resp_data)

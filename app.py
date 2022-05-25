@@ -14,7 +14,6 @@ from controllers.pagecontroller import PageListResource, PageResource, PageListH
 from controllers.contentcontroller import ContentListResource,ContentListByPidResource, AddContentListResource
 from controllers.sourcecontroller import SourceListResource
 from environ import get_env
-from utils.multiprocessor import run
 
 def create_app(test_config=None):
     """
@@ -36,7 +35,6 @@ def create_app(test_config=None):
 
     register_extensions(app)
     register_resources(app)
-    print("running app")
     # run()
 
     return app
